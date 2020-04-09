@@ -6,5 +6,7 @@ namespace OnlineHelpSystem.Models
 {
     class Teacher
     {
+        public string AuId { get; set; }
+        public string Name { get; set; }
     }
 }
