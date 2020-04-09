@@ -1,8 +1,8 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
-using EfIntroSolution.Data;
-using EfIntroSolution.Models;
+using OnlineHelpSystem.Data;
+using OnlineHelpSystem.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace OnlineHelpSystem
@@ -11,45 +11,42 @@ namespace OnlineHelpSystem
     {
         static void Main(string[] args)
         {
-          Console.WriteLine("OnlineHelpSystem launched"); 
-          
-          using (var context = new AppDbContext()) 
-          
-          { 
-            //SEED DATABASE PROMPT
-            System.Console.WriteLine("Y/n: Seed database?"); 
-            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(); 
-            if (consoleKeyInfo.KeyChar == 'Y') 
-            { 
-              SeedDatabase(context);
-            } 
-            
-            //ACTION PROMPT
-            System.Console.WriteLine("What would you like to do?");
-            System.Console.WriteLine("1: Print open help requests for (teacher, course)");
-            System.Console.WriteLine("2: Print all open help requests");
-            System.Console.WriteLine("3: Print statistics for help requests for (course)");
-            System.Console.WriteLine("4: Create data");
-            consoleKeyInfo = Console.ReadKey();
-            switch (consoleKeyInfo)
-            {
-              case '1':
-                PrintOpenHelpRequestsForTeacherCourse(context);
-                break;
-              case '2':
-                PrintAllOpenHelpRequests(context);
-                break;
-              case '3':
-                PrintStatisticsForCourse(context);
-                break;
-              case '4':
-                CreateData(context);
-                break;
-            }
-          }
-    }
+          Console.WriteLine("OnlineHelpSystem launched");
 
-    private static void PrintOpenHelpRequestsForTeacherCourse(AppDbContext context);
+          using var context = new MyDbContext();
+          //SEED DATABASE PROMPT
+          System.Console.WriteLine("Y/n: Seed database?"); 
+          ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(); 
+          if (consoleKeyInfo.KeyChar == 'Y') 
+          { 
+            SeedDatabase(context);
+          } 
+            
+          //CHOOSE ACTION PROMPT
+          System.Console.WriteLine("What would you like to do?");
+          System.Console.WriteLine("1: Print open help requests for (teacher, course)");
+          System.Console.WriteLine("2: Print all open help requests");
+          System.Console.WriteLine("3: Print statistics for help requests for (course)");
+          System.Console.WriteLine("4: Create data");
+          consoleKeyInfo = Console.ReadKey(); 
+          switch (consoleKeyInfo.KeyChar)
+          {
+            case '1':
+              PrintOpenHelpRequestsForTeacherCourse(context);
+              break;
+            case '2':
+              PrintAllOpenHelpRequests(context);
+              break;
+            case '3':
+              PrintStatisticsForCourse(context);
+              break;
+            case '4':
+              CreateData(context);
+              break;
+          }
+        }
+
+    private static void PrintOpenHelpRequestsForTeacherCourse(MyDbContext context);
     {
       string teacher;
       string course;
@@ -59,19 +56,19 @@ namespace OnlineHelpSystem
       course = Console.ReadLine();
     }
 
-    private static void PrintAllOpenHelpRequests(AppDbContext context)
+    private static void PrintAllOpenHelpRequests(MyDbContext context)
     {
       
     }
 
-    private static void PrintStatisticsForCourse(AppDbContext context, string course)
+    private static void PrintStatisticsForCourse(MyDbContext context)
     {
       string course;
       System.Console.WriteLine("Choose course");
       course = Console.ReadLine();
     }
 
-    private static void CreateData();
+    private static void CreateData(MyDbContext context)
     {
     System.Console.WriteLine("What would you like to do?");
     System.Console.WriteLine("1: Create new course");
@@ -81,37 +78,49 @@ namespace OnlineHelpSystem
     System.Console.WriteLine("5: Create new exercise");
     System.Console.WriteLine("6: Create new review");
     System.Console.WriteLine("7: Create new help request");
-    consoleKeyInfo = Console.ReadKey();
-    switch (consoleKeyInfo)
+    ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+    switch (consoleKeyInfo.KeyChar)
     {
-      case: '1'
-        string Id; 
-        string Name;
+      case '1':  //create new course
+        string id;
+        string name;
         System.Console.WriteLine("Input course ID:");
-        Id = Console.ReadLine();
+        id = Console.ReadLine();
         System.Console.WriteLine("Input course Name:");
-        Name = Console.ReadLine();
-
-        Course newcourse = new Course()
+        name = Console.ReadLine();
+        
+        Course newCourse = new Course()
         {
-          CourseId = Id,
-          Name = Name
+          CourseId = id,
+          Name = name
         };
-        context.Add(newcourse);
+        context.Add(newCourse);
         break;
-      case: '2'
-      break;
-      case: '3'
-      break;
-      case: '4'
-      break;
-      case: '5'
-      break;
-      case: '6'
-      break;
-      case: '7'
-      break;
+      case '2':
+        Student newStudent = new Student()
+        {
+          
+        }
+        context.Add(newStudent);
+        break;
+      case '3':
+        break;
+      case '4':
+        break;
+      case '5':
+        break;
+      case '6':
+        break;
+      case '7':
+        break; 
+    }
+    }
+    
 
+    private static void SeedDatabase(MyDbContext context)
+      {
+        
+      }
     
 /*
     private static void ListAllPrinters(AppDbContext context)
