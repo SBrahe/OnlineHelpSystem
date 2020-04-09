@@ -29,6 +29,21 @@ namespace OnlineHelpSystem.Data
                 entity.HasKey(c => c.CourseId);
                 entity.Property(c => c.Name);
             });
+            //Assignments
+
+            //Exercises
+            modelbuilder.Entity<Exercise>(entity =>
+            {
+                entity.HasKey(e => new { e.Lecture, e.Number });
+                entity.Property(e => e.helpWhere);
+            });
+
+            //Teachers
+            modelbuilder.Entity<Teacher>(entity =>
+            {
+                entity.HasKey(t => t.AuId);
+                entity.Property(t => t.Name);
+            });
         }
     }
 
