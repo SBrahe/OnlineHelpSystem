@@ -14,5 +14,12 @@ namespace OnlineHelpSystem.Data
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
 
+
+        protected override void OnModelCreating(ModelBuilder modelbuilder)
+        {
+            //Student
+            modelbuilder.Entity<Student>().HasKey(a => new { a.AuId });
+        }
     }
+
 }
