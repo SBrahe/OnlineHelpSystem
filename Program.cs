@@ -6,33 +6,40 @@ namespace OnlineHelpSystem
     {
         static void Main(string[] args)
         {
-          Console.WriteLine("Hello World!");
+          Console.WriteLine("OnlineHelpSystem launched"); 
           
-      using (var context = new AppDbContext())
-      {
-        System.Console.WriteLine("Seed database?? Y/n");
-        ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
-        if (consoleKeyInfo.KeyChar == 'Y')
-        {
-          SeedDatabase(context);
-        }
+          using (var context = new AppDbContext()) 
+          
+          { 
+            //SEED DATABASE PROMPT
+            System.Console.WriteLine("Y/n: Seed database?"); 
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(); 
+            if (consoleKeyInfo.KeyChar == 'Y') 
+            { 
+              SeedDatabase(context);
+            } 
+            
+            //ACTION PROMPT
+            System.Console.WriteLine("What would you like to do?");
+            System.Console.WriteLine("1: Print open help requests for (teacher, course)");
+            System.Console.WriteLine("2: Print all open help requests");
+            System.Console.WriteLine("3: Print statistics for help requests for (course)");
+            System.Console.WriteLine("4: Create data");
+            consoleKeyInfo = Console.ReadKey();
+            switch (consoleKeyInfo)
+            {
+              case '1':
+                break;
+              case '2':
+                break;
+              case '3':
+                break;
+              case '4':
+                break:
+            }
 
-        System.Console.WriteLine("Show all products Y/n");
-        consoleKeyInfo = Console.ReadKey();
-        if (consoleKeyInfo.KeyChar == 'Y')
-        {
-          ShowAllProducts(context, 'a');
-        }
 
-        System.Console.WriteLine("List all Pcs(p), Laptops(l), Printers(m)");
-        consoleKeyInfo = Console.ReadKey();
-        if (consoleKeyInfo.KeyChar == 'p' || consoleKeyInfo.KeyChar == 'l' || consoleKeyInfo.KeyChar == 'm')
-        {
-          ShowAllProducts(context, consoleKeyInfo.KeyChar);
-        }
-
-        System.Console.WriteLine("Quiting...");
-      }
+          }
     }
 
     private static void ShowAllProducts(AppDbContext context, char c)

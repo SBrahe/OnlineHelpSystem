@@ -9,7 +9,7 @@
 *.user
 *.userosscache
 *.sln.docstates
-MyDbContext.cs
+MyDbContextPrivatePart.cs
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -338,4 +338,4 @@ ASALocalRun/
 .localhistory/
 
 # BeatPulse healthcheck temp database
-healthchecksdbMyDbContext.cs
+MyDbContextPrivatePart.cs
