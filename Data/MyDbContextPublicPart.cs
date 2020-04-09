@@ -18,7 +18,17 @@ namespace OnlineHelpSystem.Data
         protected override void OnModelCreating(ModelBuilder modelbuilder)
         {
             //Student
-            modelbuilder.Entity<Student>().HasKey(a => new { a.AuId });
+            modelbuilder.Entity<Student>(entity =>
+            {
+                entity.HasKey(s => s.AuId );
+                entity.Property(s => s.Name);
+            });
+            //Courses
+            modelbuilder.Entity<Course>(entity =>
+            {
+                entity.HasKey(c => c.CourseId);
+                entity.Property(c => c.Name);
+            });
         }
     }
 
