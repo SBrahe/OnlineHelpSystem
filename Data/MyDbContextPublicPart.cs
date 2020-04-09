@@ -34,7 +34,7 @@ namespace OnlineHelpSystem.Data
             modelbuilder.Entity<Exercise>(entity =>
             {
                 entity.HasKey(e => new { e.Lecture, e.Number });
-                entity.Property(e => e.helpWhere);
+                entity.Property(e => e.HelpWhere);
             });
 
             //Teachers
