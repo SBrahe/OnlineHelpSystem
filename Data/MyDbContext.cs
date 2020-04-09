@@ -9,7 +9,7 @@ namespace OnlineHelpSystem.Data
     {
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            optionsBuilder.UseSqlServer("Data Source = 127.0.0.1, 1433; Database = ProductDB; User ID = SA; Password = SecurePassword1!");
+            optionsBuilder.UseSqlServer("Data Source = 127.0.0.1, 1433; Database = OnlineHelpSystemDb; User ID = SA; Password = SecurePassword1!");
         }
     }
 }

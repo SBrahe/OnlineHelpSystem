@@ -8,5 +8,8 @@ namespace OnlineHelpSystem.Models
     {
         public string CourseId { get; set; }
         public string Name { get; set; }
+
+        public List<Assignment> Assignments { get; set; }
+        public List<Teacher> Teachers { get; set; }
     }
 }
