@@ -8,6 +8,8 @@ namespace OnlineHelpSystem.Models
     {
         public string AuId { get; set; }
         public string Name { get; set; }
+        
+        public List<Exercise> Exercises { get; set; }
 
     }
 }
