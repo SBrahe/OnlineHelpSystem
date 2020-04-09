@@ -8,6 +8,6 @@ namespace OnlineHelpSystem.Models
     {
         public int Number { get; set; }
         public string Lecture { get; set; }
-        public string helpWhere{get;set;}
+        public string HelpWhere{get;set;}
     }
 }
