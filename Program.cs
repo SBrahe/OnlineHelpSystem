@@ -1,4 +1,9 @@
-﻿using System;
+﻿using System.Collections.Generic;
+using System;
+using System.Linq;
+using EfIntroSolution.Data;
+using EfIntroSolution.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace OnlineHelpSystem
 {
@@ -29,43 +34,86 @@ namespace OnlineHelpSystem
             switch (consoleKeyInfo)
             {
               case '1':
+                PrintOpenHelpRequestsForTeacherCourse(context);
                 break;
               case '2':
+                PrintAllOpenHelpRequests(context);
                 break;
               case '3':
+                PrintStatisticsForCourse(context);
                 break;
               case '4':
-                break:
+                CreateData(context);
+                break;
             }
-
-
           }
     }
 
-    private static void ShowAllProducts(AppDbContext context, char c)
+    private static void PrintOpenHelpRequestsForTeacherCourse(AppDbContext context);
     {
-      switch (c)
-      {
-        case 'a':
-          ListAllPcs(context);
-          ListAllLaptops(context);
-          ListAllPrinters(context);
-          break;
-
-        case 'p':
-          ListAllPcs(context);
-          break;
-
-        case 'l':
-          ListAllLaptops(context);
-          break;
-
-        case 'm':
-          ListAllPrinters(context);
-          break;
-      }
+      string teacher;
+      string course;
+      System.Console.WriteLine("Choose teacher");
+      teacher = Console.ReadLine();
+      System.Console.WriteLine("Choose course");
+      course = Console.ReadLine();
     }
 
+    private static void PrintAllOpenHelpRequests(AppDbContext context)
+    {
+      
+    }
+
+    private static void PrintStatisticsForCourse(AppDbContext context, string course)
+    {
+      string course;
+      System.Console.WriteLine("Choose course");
+      course = Console.ReadLine();
+    }
+
+    private static void CreateData();
+    {
+    System.Console.WriteLine("What would you like to do?");
+    System.Console.WriteLine("1: Create new course");
+    System.Console.WriteLine("2: Create new student");
+    System.Console.WriteLine("3: Create new teacher");
+    System.Console.WriteLine("4: Create new assignment");
+    System.Console.WriteLine("5: Create new exercise");
+    System.Console.WriteLine("6: Create new review");
+    System.Console.WriteLine("7: Create new help request");
+    consoleKeyInfo = Console.ReadKey();
+    switch (consoleKeyInfo)
+    {
+      case: '1'
+        string Id; 
+        string Name;
+        System.Console.WriteLine("Input course ID:");
+        Id = Console.ReadLine();
+        System.Console.WriteLine("Input course Name:");
+        Name = Console.ReadLine();
+
+        Course newcourse = new Course()
+        {
+          CourseId = Id,
+          Name = Name
+        };
+        context.Add(newcourse);
+        break;
+      case: '2'
+      break;
+      case: '3'
+      break;
+      case: '4'
+      break;
+      case: '5'
+      break;
+      case: '6'
+      break;
+      case: '7'
+      break;
+
+    
+/*
     private static void ListAllPrinters(AppDbContext context)
     {
       foreach (var pc in context.printers.Include(p => p.Product).ToList())
@@ -157,4 +205,5 @@ namespace OnlineHelpSystem
       System.Console.WriteLine("Data saved");
         }
     }
+    */
 }
