@@ -1,9 +1,21 @@
-﻿//using System.Collections.Generic;
-//using System;
-//using System.Linq;
-//using OnlineHelpSystem.Data;
-//using OnlineHelpSystem.Models;
-//using Microsoft.EntityFrameworkCore;
+﻿using System.Collections.Generic;
+using System;
+using System.Linq;
+using OnlineHelpSystem.Data;
+using OnlineHelpSystem.Models;
+using Microsoft.EntityFrameworkCore;
+
+
+namespace OnlineHelpSystem
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("helloWorld");
+        }
+    }
+}
 
 //namespace OnlineHelpSystem
 //{
@@ -21,7 +33,7 @@
 //          { 
 //            SeedDatabase(context);
 //          } 
-            
+
 //          //CHOOSE ACTION PROMPT
 //          System.Console.WriteLine("What would you like to do?");
 //          System.Console.WriteLine("1: Print open help requests for (teacher, course)");
@@ -58,7 +70,7 @@
 
 //    private static void PrintAllOpenHelpRequests(MyDbContext context)
 //    {
-      
+
 //    }
 
 //    private static void PrintStatisticsForCourse(MyDbContext context)
@@ -88,7 +100,7 @@
 //        id = Console.ReadLine();
 //        System.Console.WriteLine("Input course name:");
 //        name = Console.ReadLine();
-        
+
 //        Course newCourse = new Course()
 //        {
 //          CourseId = id,
@@ -135,13 +147,13 @@
 //        break; 
 //    }
 //    }
-    
+
 
 //    private static void SeedDatabase(MyDbContext context)
 //      {
-        
+
 //      }
-    
+
 /*
     private static void ListAllPrinters(AppDbContext context)
     {

@@ -13,5 +13,7 @@ namespace OnlineHelpSystem.Models
         public List<StudentAssignment>StudentAssignments {get;set;}
         public List<StudentCourse> StudentCourses { get; set; }
 
+        //public List<Assignment> Assignments { get; set; }
+
     }
 }
