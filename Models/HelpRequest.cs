@@ -12,8 +12,5 @@ namespace OnlineHelpSystem.Models
         public int AssignmentNumber { get; set; }
         public Assignment assignment { get; set; }
 
-        public int Number { get; set; }
-        public string Lecture { get; set; }
-        public Exercise Exercise { get; set; }
     }
 }
