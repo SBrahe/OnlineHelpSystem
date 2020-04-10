@@ -10,6 +10,7 @@ namespace OnlineHelpSystem.Models
         public string Name { get; set; }
 
         public List<Assignment> Assignments { get; set; }
+        public List<Exercise> Exercises { get; set; }
         public List<Teacher> Teachers { get; set; }
     }
 }

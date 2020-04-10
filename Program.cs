@@ -86,7 +86,7 @@ namespace OnlineHelpSystem
         string name;
         System.Console.WriteLine("Input course ID:");
         id = Console.ReadLine();
-        System.Console.WriteLine("Input course Name:");
+        System.Console.WriteLine("Input course name:");
         name = Console.ReadLine();
         
         Course newCourse = new Course()
@@ -96,22 +96,42 @@ namespace OnlineHelpSystem
         };
         context.Add(newCourse);
         break;
-      case '2':
+      case '2': //create new student
+        string auid;
+        string name;
+        System.Console.WriteLine("Input student auID:");
+        auid = Console.ReadLine();
+        System.Console.WriteLine("Input student name:");
+        name = Console.ReadLine();
         Student newStudent = new Student()
         {
-          
-        }
+          AuId = auid,
+          Name = name
+        };
         context.Add(newStudent);
         break;
-      case '3':
+      case '3': // create new teacher
+        string auid;
+        string name;
+        System.Console.WriteLine("Input teacher auID:");
+        auid = Console.ReadLine();
+        System.Console.WriteLine("Input teacher name:");
+        name = Console.ReadLine();
+        Teacher newTeacher = new Teacher()
+        {
+          AuId = auid,
+          Name = name
+        };
+        context.Add(newTeacher);
         break;
-      case '4':
         break;
-      case '5':
+      case '4': //create new assignment
         break;
-      case '6':
+      case '5': //create new exercise
         break;
-      case '7':
+      case '6': //create new review
+        break;
+      case '7': // create new help request
         break; 
     }
     }
