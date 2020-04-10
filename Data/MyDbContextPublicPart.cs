@@ -20,7 +20,7 @@ namespace OnlineHelpSystem.Data
             modelbuilder.Entity<Student>(entity =>
             {
                 entity.HasKey(s => s.AuId );
-                entity.Property(s => s.Name);
+                entity.HasOne(s => s.Name);
             });
             //Courses
             modelbuilder.Entity<Course>(entity =>

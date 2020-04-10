@@ -8,5 +8,7 @@ namespace OnlineHelpSystem.Models
     {
         public int AssignmentNumber { get; set; }
         public string HelpWhere { get; set; }
+
+        public List<StudentAssignment> StudentAssignments { get; set; }
     }
 }
