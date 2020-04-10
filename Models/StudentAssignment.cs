@@ -8,5 +8,9 @@ namespace OnlineHelpSystem.Models
     {
         public string AuId { get; set; }
         public Student Student { get; set; }
+
+        public int AssignmentNumber { get; set; }
+        public Assignment Assignment { get; set; }
+
     }
 }
