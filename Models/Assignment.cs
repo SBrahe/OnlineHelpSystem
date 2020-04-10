@@ -6,5 +6,7 @@ namespace OnlineHelpSystem.Models
 {
     class Assignment
     {
+        public int AssignmentNumber { get; set; }
+        public string HelpWhere { get; set; }
     }
 }

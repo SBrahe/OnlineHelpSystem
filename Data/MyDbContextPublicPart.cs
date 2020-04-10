@@ -29,7 +29,11 @@ namespace OnlineHelpSystem.Data
                 entity.Property(c => c.Name);
             });
             //Assignments
-
+            modelbuilder.Entity<Assignment>(entity =>
+            {
+                entity.HasKey(l => l.AssignmentNumber);
+                entity.Property(l => l.HelpWhere);
+            });
             //Exercises
             modelbuilder.Entity<Exercise>(entity =>
             {
