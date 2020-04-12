@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Linq;
+using System.Net.Mime;
 using OnlineHelpSystem.Data;
 using OnlineHelpSystem.Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,36 +14,56 @@ namespace OnlineHelpSystem
     static void Main(string[] args)
     {
       Console.WriteLine("OnlineHelpSystem launched");
-
       using var context = new MyDbContext();
+      
       //SEED DATABASE PROMPT
       System.Console.WriteLine("y/n: Seed database?");
       ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
       if (consoleKeyInfo.KeyChar == 'y')
       {
+        System.Console.WriteLine("\n");
         SeedDatabase(context);
       }
-
+      else
+      {
+        System.Console.WriteLine("\n");
+      }
+      
       //CHOOSE ACTION PROMPT
+      CHOOSE_ACTION_PROMPT:
       System.Console.WriteLine("What would you like to do?");
       System.Console.WriteLine("1: Print open help requests for (teacher, course)");
       System.Console.WriteLine("2: Print all open help requests");
       System.Console.WriteLine("3: Print statistics for help requests for (course)");
-      System.Console.WriteLine("4: Create data");
+      System.Console.WriteLine("4: List all data");
+      System.Console.WriteLine("5: Create data");
+      System.Console.WriteLine("6: Exit");
       consoleKeyInfo = Console.ReadKey();
       switch (consoleKeyInfo.KeyChar)
       {
         case '1':
+          System.Console.WriteLine("");
           PrintOpenHelpRequestsForTeacherCourse(context);
-          break;
+          goto CHOOSE_ACTION_PROMPT;
         case '2':
+          System.Console.WriteLine("");
           PrintAllOpenHelpRequests(context);
-          break;
+          goto CHOOSE_ACTION_PROMPT;
         case '3':
+          System.Console.WriteLine("");
           PrintStatisticsForCourse(context);
-          break;
+          goto CHOOSE_ACTION_PROMPT;
         case '4':
+          System.Console.WriteLine("");
+          ListAllData(context);
+          goto CHOOSE_ACTION_PROMPT;
+        case '5':
+          System.Console.WriteLine("");
           CreateData(context);
+          goto CHOOSE_ACTION_PROMPT;
+        case '6':
+          break; 
+        default:
           break;
       }
     }
@@ -64,9 +85,70 @@ namespace OnlineHelpSystem
 
     private static void PrintStatisticsForCourse(MyDbContext context)
     {
-      string course;
-      System.Console.WriteLine("Choose course");
-      course = Console.ReadLine();
+      // string course;
+      // System.Console.WriteLine("Choose course");
+      // course = Console.ReadLine();
+      //
+      // course = context.Courses.Include(p => p.Name);
+      //   
+      // foreach (var course in context.Courses.Include(p => p.Name).ToList())
+      // {
+      //   System.Console.WriteLine(course);
+      // }
+    }
+
+    private static void ListAllData(MyDbContext context)
+    {
+      System.Console.WriteLine("LISTING ALL DATA"); 
+      //list all students
+      System.Console.WriteLine("___ALL STUDENTS___"); 
+      var studentList =context.Students.ToList();
+      
+      foreach (var student in studentList)
+      {
+        System.Console.WriteLine(student.Name);
+      }
+      System.Console.WriteLine("");
+
+      //list all teachers
+      System.Console.WriteLine("___ALL TEACHERS___");
+      var teacherList =context.Teachers.ToList();
+      
+      foreach (var teacher in teacherList)
+      {
+        System.Console.WriteLine(teacher.Name);
+      }
+      System.Console.WriteLine("");
+
+      //list all courses
+      System.Console.WriteLine("___ALL COURSES___");
+      var courseList =context.Courses.ToList();
+      
+      foreach (var course in courseList)
+      {
+        System.Console.WriteLine(course.Name);
+      }
+      System.Console.WriteLine("");
+
+      //list all exercises
+      System.Console.WriteLine("___ALL EXERCISES___");
+      var exerciseList =context.Excercises.ToList();
+      
+      foreach (var exercise in exerciseList)
+      {
+        System.Console.WriteLine(exercise.Number);
+      }
+      System.Console.WriteLine("");
+
+      //list all assignments
+      System.Console.WriteLine("___ALL ASSIGNMENTS___");
+      var assignmentList =context.Assignments.ToList();
+      
+      foreach (var assignment in assignmentList)
+      {
+        System.Console.WriteLine(assignment.AssignmentNumber);
+      }
+      System.Console.WriteLine("");
     }
 
     private static void CreateData(MyDbContext context)
@@ -134,102 +216,37 @@ namespace OnlineHelpSystem
 
     private static void SeedDatabase(MyDbContext context)
     {
-      System.Console.WriteLine("\nDatabase seeded");
+      //delete and recreate database
+      context.Database.EnsureDeleted();
+      context.Database.EnsureCreated();
+      
+      //create students
+      context.Students.Add(new Student { AuId = "au135848", Name = "Soeren Brostroem",});
+      context.Students.Add(new Student { AuId = "au135333", Name = "Hanne Lind",});
+      context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe",});
+      context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager",});
+      context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech",});
+      context.SaveChanges();
+      
+      //create teachers
+      context.Teachers.Add(new Teacher { TAuId = "au758313", Name = "Lars Larsen",});
+      context.Teachers.Add(new Teacher { TAuId = "au542341", Name = "Barack Obama",});
+      context.Teachers.Add(new Teacher { TAuId = "au542413", Name = "Joe Exotic",});
+      context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman",});
+      context.Teachers.Add(new Teacher {TAuId = "au1241245", Name = "Phoebe Buffay",});
+      context.SaveChanges();
+      
+      //create courses
+      context.Courses.Add(new Course { CourseId = "I4DAB", Name = "Databaser",});
+      context.Courses.Add(new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling"});
+      context.Courses.Add(new Course { CourseId = "I4SWD", Name = "Software Design",});
+      context.SaveChanges();
+      
+      //create assignments
+      
+      //create exercises
+      
+      System.Console.WriteLine("Database seeded");
     }
   }
 }
-
-/*
-    private static void ListAllPrinters(AppDbContext context)
-    {
-      foreach (var pc in context.printers.Include(p => p.Product).ToList())
-      {
-        System.Console.WriteLine(pc);
-      }
-    }
-
-    private static void ListAllLaptops(AppDbContext context)
-    {
-      foreach (var pc in context.laptops.Include(p => p.Product).ToList())
-      {
-        System.Console.WriteLine(pc);
-      }
-    }
-
-    private static void ListAllPcs(AppDbContext context)
-    {
-      foreach (var pc in context.pcs.Include(p => p.Product).ToList())
-      {
-        System.Console.WriteLine(pc);
-      }
-    }
-
-    private static void SeedDatabase(AppDbContext context)
-    {
-      Product DellLatitude = new Product()
-      {
-        Maker = "Dell",
-        Model = "Latitude"
-      };
-
-      Product ThinkpadT560 = new Product()
-      {
-        Maker = "Thinkpad",
-        Model = "T560"
-      };
-
-      Product Epson = new Product()
-      {
-        Maker = "Epson",
-      };
-
-      context.Add(DellLatitude);
-      context.Add(ThinkpadT560);
-      context.Add(Epson);
-
-      Laptop laptop1 = new Laptop()
-      {
-        Product = ThinkpadT560,
-        Hd = 23,
-        Screen = 21,
-        Price = 23,
-        Speed = 34,
-      };
-
-      Laptop laptop2 = new Laptop()
-      {
-        Product = ThinkpadT560,
-        Hd = 24,
-        Screen = 21,
-        Price = 23,
-        Speed = 34,
-      };
-
-      Laptop laptop3 = new Laptop()
-      {
-        Product = DellLatitude,
-        Hd = 242,
-        Screen = 12,
-        Price = 2323,
-        Speed = 341,
-      };
-
-      context.Add(laptop1);
-      context.Add(laptop2);
-      context.Add(laptop3);
-
-      Printer p = new Printer()
-      {
-        Product = Epson,
-        Color = "64",
-        Price = 234
-      };
-
-      context.Add(p);
-
-      context.SaveChanges();
-      System.Console.WriteLine("Data saved");
-        }
-    }
-//    */
-//}
