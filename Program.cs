@@ -8,151 +8,136 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OnlineHelpSystem
 {
-    class Program
+  class Program
+  {
+    static void Main(string[] args)
     {
-        static void Main(string[] args)
-        {
-            Console.WriteLine("helloWorld");
-        }
+      Console.WriteLine("OnlineHelpSystem launched");
+
+      using var context = new MyDbContext();
+      //SEED DATABASE PROMPT
+      System.Console.WriteLine("y/n: Seed database?");
+      ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+      if (consoleKeyInfo.KeyChar == 'y')
+      {
+        SeedDatabase(context);
+      }
+
+      //CHOOSE ACTION PROMPT
+      System.Console.WriteLine("What would you like to do?");
+      System.Console.WriteLine("1: Print open help requests for (teacher, course)");
+      System.Console.WriteLine("2: Print all open help requests");
+      System.Console.WriteLine("3: Print statistics for help requests for (course)");
+      System.Console.WriteLine("4: Create data");
+      consoleKeyInfo = Console.ReadKey();
+      switch (consoleKeyInfo.KeyChar)
+      {
+        case '1':
+          PrintOpenHelpRequestsForTeacherCourse(context);
+          break;
+        case '2':
+          PrintAllOpenHelpRequests(context);
+          break;
+        case '3':
+          PrintStatisticsForCourse(context);
+          break;
+        case '4':
+          CreateData(context);
+          break;
+      }
     }
+
+    private static void PrintOpenHelpRequestsForTeacherCourse(MyDbContext context)
+    {
+      string teacher;
+      string course;
+      System.Console.WriteLine("Choose teacher");
+      teacher = Console.ReadLine();
+      System.Console.WriteLine("Choose course");
+      course = Console.ReadLine();
+    }
+
+    private static void PrintAllOpenHelpRequests(MyDbContext context)
+    {
+
+    }
+
+    private static void PrintStatisticsForCourse(MyDbContext context)
+    {
+      string course;
+      System.Console.WriteLine("Choose course");
+      course = Console.ReadLine();
+    }
+
+    private static void CreateData(MyDbContext context)
+    {
+      string id;
+      string name;
+      System.Console.WriteLine("What would you like to do?");
+      System.Console.WriteLine("1: Create new course");
+      System.Console.WriteLine("2: Create new student");
+      System.Console.WriteLine("3: Create new teacher");
+      System.Console.WriteLine("4: Create new assignment");
+      System.Console.WriteLine("5: Create new exercise");
+      System.Console.WriteLine("6: Create new review");
+      System.Console.WriteLine("7: Create new help request");
+      ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+      switch (consoleKeyInfo.KeyChar)
+      {
+        case '1': //create new course
+          System.Console.WriteLine("Input course ID:");
+          id = Console.ReadLine();
+          System.Console.WriteLine("Input course name:");
+          name = Console.ReadLine();
+
+          Course newCourse = new Course()
+          {
+            CourseId = id,
+            Name = name
+          };
+          context.Add(newCourse);
+          break;
+        case '2': //create new student
+          System.Console.WriteLine("Input student auID:");
+          id = Console.ReadLine();
+          System.Console.WriteLine("Input student name:");
+          name = Console.ReadLine();
+          Student newStudent = new Student()
+          {
+            AuId = id,
+            Name = name
+          };
+          context.Add(newStudent);
+          break;
+        case '3': // create new teacher
+          System.Console.WriteLine("Input teacher auID:");
+          id = Console.ReadLine();
+          System.Console.WriteLine("Input teacher name:");
+          name = Console.ReadLine();
+          Teacher newTeacher = new Teacher()
+          {
+            TAuId = id,
+            Name = name
+          };
+          context.Add(newTeacher);
+          break;
+        case '4': //create new assignment
+          break;
+        case '5': //create new exercise
+          break;
+        case '6': //create new review
+          break;
+        case '7': // create new help request
+          break;
+      }
+    }
+
+    private static void SeedDatabase(MyDbContext context)
+    {
+      System.Console.WriteLine("\nDatabase seeded");
+    }
+  }
 }
-
-//namespace OnlineHelpSystem
-//{
-//    class Program
-//    {
-//        static void Main(string[] args)
-//        {
-//          Console.WriteLine("OnlineHelpSystem launched");
-
-//          using var context = new MyDbContext();
-//          //SEED DATABASE PROMPT
-//          System.Console.WriteLine("Y/n: Seed database?"); 
-//          ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(); 
-//          if (consoleKeyInfo.KeyChar == 'Y') 
-//          { 
-//            SeedDatabase(context);
-//          } 
-
-//          //CHOOSE ACTION PROMPT
-//          System.Console.WriteLine("What would you like to do?");
-//          System.Console.WriteLine("1: Print open help requests for (teacher, course)");
-//          System.Console.WriteLine("2: Print all open help requests");
-//          System.Console.WriteLine("3: Print statistics for help requests for (course)");
-//          System.Console.WriteLine("4: Create data");
-//          consoleKeyInfo = Console.ReadKey(); 
-//          switch (consoleKeyInfo.KeyChar)
-//          {
-//            case '1':
-//              PrintOpenHelpRequestsForTeacherCourse(context);
-//              break;
-//            case '2':
-//              PrintAllOpenHelpRequests(context);
-//              break;
-//            case '3':
-//              PrintStatisticsForCourse(context);
-//              break;
-//            case '4':
-//              CreateData(context);
-//              break;
-//          }
-//        }
-
-//    private static void PrintOpenHelpRequestsForTeacherCourse(MyDbContext context);
-//    {
-//      string teacher;
-//      string course;
-//      System.Console.WriteLine("Choose teacher");
-//      teacher = Console.ReadLine();
-//      System.Console.WriteLine("Choose course");
-//      course = Console.ReadLine();
-//    }
-
-//    private static void PrintAllOpenHelpRequests(MyDbContext context)
-//    {
-
-//    }
-
-//    private static void PrintStatisticsForCourse(MyDbContext context)
-//    {
-//      string course;
-//      System.Console.WriteLine("Choose course");
-//      course = Console.ReadLine();
-//    }
-
-//    private static void CreateData(MyDbContext context)
-//    {
-//    System.Console.WriteLine("What would you like to do?");
-//    System.Console.WriteLine("1: Create new course");
-//    System.Console.WriteLine("2: Create new student");
-//    System.Console.WriteLine("3: Create new teacher");
-//    System.Console.WriteLine("4: Create new assignment");
-//    System.Console.WriteLine("5: Create new exercise");
-//    System.Console.WriteLine("6: Create new review");
-//    System.Console.WriteLine("7: Create new help request");
-//    ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
-//    switch (consoleKeyInfo.KeyChar)
-//    {
-//      case '1':  //create new course
-//        string id;
-//        string name;
-//        System.Console.WriteLine("Input course ID:");
-//        id = Console.ReadLine();
-//        System.Console.WriteLine("Input course name:");
-//        name = Console.ReadLine();
-
-//        Course newCourse = new Course()
-//        {
-//          CourseId = id,
-//          Name = name
-//        };
-//        context.Add(newCourse);
-//        break;
-//      case '2': //create new student
-//        string auid;
-//        string name;
-//        System.Console.WriteLine("Input student auID:");
-//        auid = Console.ReadLine();
-//        System.Console.WriteLine("Input student name:");
-//        name = Console.ReadLine();
-//        Student newStudent = new Student()
-//        {
-//          AuId = auid,
-//          Name = name
-//        };
-//        context.Add(newStudent);
-//        break;
-//      case '3': // create new teacher
-//        string auid;
-//        string name;
-//        System.Console.WriteLine("Input teacher auID:");
-//        auid = Console.ReadLine();
-//        System.Console.WriteLine("Input teacher name:");
-//        name = Console.ReadLine();
-//        Teacher newTeacher = new Teacher()
-//        {
-//          AuId = auid,
-//          Name = name
-//        };
-//        context.Add(newTeacher);
-//        break;
-//        break;
-//      case '4': //create new assignment
-//        break;
-//      case '5': //create new exercise
-//        break;
-//      case '6': //create new review
-//        break;
-//      case '7': // create new help request
-//        break; 
-//    }
-//    }
-
-
-//    private static void SeedDatabase(MyDbContext context)
-//      {
-
-//      }
 
 /*
     private static void ListAllPrinters(AppDbContext context)
