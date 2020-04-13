@@ -91,7 +91,7 @@ namespace OnlineHelpSystem
                 if (exercise.TAuId == teacher && exercise.CourseId == course)
                 {
                     Console.WriteLine(exercise.HelpWhere);
-                    exercise.Open = true;                    
+                    exercise.Open = false;                    
                 }               
             }
 
@@ -103,23 +103,12 @@ namespace OnlineHelpSystem
                 if (assignment.TAuId == teacher && assignment.CourseId == course)
                 {
                     Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
-                    assignment.Open = true;                    
+                    assignment.Open = false;                    
                 }
             }
             context.SaveChanges(); //To open help-request
 
-            //var Assignments = context.Assignments.Include(a => a.StudentAssignments);
-
-            //Console.WriteLine("Assigments: ");
-            //foreach (var assignment in Assignments)
-            //{
-            //    foreach()
-            //    if (assignment==auid)
-            //    {
-            //        Console.WriteLine("----------Assignment Help Request----------");     
-            //        Console.WriteLine($"auid: ")
-            //        Console.WriteLine("-----------------------------------------");
-            //    }
+     
         }
 
         private static void PrintAllOpenHelpRequests(MyDbContext context)

@@ -14,6 +14,12 @@
     <Compile Remove="Migrations\20200413145726_InitialMigration.Designer.cs" />
     <Compile Remove="Migrations\20200413183103_migration1.cs" />
     <Compile Remove="Migrations\20200413183103_migration1.Designer.cs" />
+    <Compile Remove="Migrations\20200413192817_migration.cs" />
+    <Compile Remove="Migrations\20200413192817_migration.Designer.cs" />
+    <Compile Remove="Migrations\20200413192912_migration2.cs" />
+    <Compile Remove="Migrations\20200413192912_migration2.Designer.cs" />
+    <Compile Remove="Migrations\20200413204946_komnu.cs" />
+    <Compile Remove="Migrations\20200413204946_komnu.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

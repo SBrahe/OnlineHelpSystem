@@ -2,7 +2,7 @@
 
 namespace OnlineHelpSystem.Migrations
 {
-    public partial class migration : Migration
+    public partial class friskstart : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,7 +80,7 @@ namespace OnlineHelpSystem.Migrations
                 columns: table => new
                 {
                     AssignmentNumber = table.Column<string>(nullable: false),
-                    Open = table.Column<bool>(nullable: false, defaultValue: false),
+                    Open = table.Column<bool>(nullable: false, defaultValue: true),
                     HelpWhere = table.Column<string>(nullable: true),
                     CourseId = table.Column<string>(nullable: true),
                     TAuId = table.Column<string>(nullable: true)
@@ -109,7 +109,7 @@ namespace OnlineHelpSystem.Migrations
                     ExerciseNumber = table.Column<int>(nullable: false),
                     Lecture = table.Column<string>(nullable: false),
                     HelpWhere = table.Column<string>(nullable: true),
-                    Open = table.Column<bool>(nullable: false, defaultValue: false),
+                    Open = table.Column<bool>(nullable: false, defaultValue: true),
                     AuId = table.Column<string>(nullable: true),
                     CourseId = table.Column<string>(nullable: true),
                     TAuId = table.Column<string>(nullable: true)
@@ -138,7 +138,7 @@ namespace OnlineHelpSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "StudentAssignment",
+                name: "StudentAssigments",
                 columns: table => new
                 {
                     AuId = table.Column<string>(nullable: false),
@@ -146,15 +146,15 @@ namespace OnlineHelpSystem.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_StudentAssignment", x => new { x.AuId, x.AssignmentNumber });
+                    table.PrimaryKey("PK_StudentAssigments", x => new { x.AuId, x.AssignmentNumber });
                     table.ForeignKey(
-                        name: "FK_StudentAssignment_Assignments_AssignmentNumber",
+                        name: "FK_StudentAssigments_Assignments_AssignmentNumber",
                         column: x => x.AssignmentNumber,
                         principalTable: "Assignments",
                         principalColumn: "AssignmentNumber",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_StudentAssignment_Students_AuId",
+                        name: "FK_StudentAssigments_Students_AuId",
                         column: x => x.AuId,
                         principalTable: "Students",
                         principalColumn: "AuId",
@@ -187,8 +187,8 @@ namespace OnlineHelpSystem.Migrations
                 column: "TAuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_StudentAssignment_AssignmentNumber",
-                table: "StudentAssignment",
+                name: "IX_StudentAssigments_AssignmentNumber",
+                table: "StudentAssigments",
                 column: "AssignmentNumber");
 
             migrationBuilder.CreateIndex(
@@ -208,7 +208,7 @@ namespace OnlineHelpSystem.Migrations
                 name: "Exercises");
 
             migrationBuilder.DropTable(
-                name: "StudentAssignment");
+                name: "StudentAssigments");
 
             migrationBuilder.DropTable(
                 name: "StudentCourse");
