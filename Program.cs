@@ -16,7 +16,7 @@ namespace OnlineHelpSystem
       Console.WriteLine("OnlineHelpSystem launched");
       using var context = new MyDbContext();
             
-                RemoveData(context);
+                //RemoveData(context);
                 SeedDatabase(context);
 
         #region Action prompts
@@ -63,7 +63,6 @@ namespace OnlineHelpSystem
 
         #endregion
 
-
         #region Print specifics
         private static void PrintOpenHelpRequestsForTeacherCourse(MyDbContext context)
     {
@@ -78,7 +77,7 @@ namespace OnlineHelpSystem
       Console.WriteLine("Choose Course id: " + Environment.NewLine);
       course = Console.ReadLine();
             Console.WriteLine("Exercise help Request(s): ");
-            foreach (var exercise in context.Excercises)
+            foreach (var exercise in context.Exercises)
             {
                 if (exercise.TAuId == teacher && exercise.CourseId == course)
                 {                  
@@ -119,7 +118,7 @@ namespace OnlineHelpSystem
             }
 
             Console.WriteLine("Exercises: ");
-            foreach (var exercise in context.Excercises)
+            foreach (var exercise in context.Exercises)
             {
                 if(exercise.AuId == auid)
                 {
@@ -197,7 +196,7 @@ namespace OnlineHelpSystem
 
       //list all exercises
       System.Console.WriteLine("___ALL EXERCISES___");
-      var exerciseList =context.Excercises.ToList();
+      var exerciseList =context.Exercises.ToList();
       
       foreach (var exercise in exerciseList)
       {
@@ -420,9 +419,9 @@ namespace OnlineHelpSystem
             {
                 context.Assignments.Remove(assignment);
             }
-            foreach (var exercise in context.Excercises)
+            foreach (var exercise in context.Exercises)
             {
-                context.Excercises.Remove(exercise);
+                context.Exercises.Remove(exercise);
             }
             foreach (var student in context.Students)
             {
@@ -436,14 +435,16 @@ namespace OnlineHelpSystem
             context.SaveChanges();
             Console.WriteLine("Data removed");
         }
-
-
+        
         #endregion
 
         #region SeedDatabase
 
         private static void SeedDatabase(MyDbContext context)
         {
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+            
             context.Students.Add(new Student { AuId = "au135848", Name = "Soeren Brostroem", });
             context.Students.Add(new Student { AuId = "au135333", Name = "Hanne Lind", });
             context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe", });
@@ -463,12 +464,12 @@ namespace OnlineHelpSystem
             context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", });
             context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", });
             context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", });
-
-            context.Excercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413", });            
-            context.Excercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413", });
-            context.Excercises.Add(new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234", });
-            context.Excercises.Add(new Exercise { ExerciseNumber = 4, Lecture = "Umulig c++", HelpWhere = "opg 42.4", AuId = "au963454", CourseId = "I3ISU", TAuId = "au542341", });
-            context.Excercises.Add(new Exercise { ExerciseNumber = 5, Lecture = "EF Core - Migrations", HelpWhere = "opg 2.7", AuId = "au136427", CourseId = "I3ISU", TAuId = "au542413", });
+            
+            context.Exercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413", });            
+            context.Exercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413", });
+            context.Exercises.Add(new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234", });
+            context.Exercises.Add(new Exercise { ExerciseNumber = 4, Lecture = "Umulig c++", HelpWhere = "opg 42.4", AuId = "au963454", CourseId = "I3ISU", TAuId = "au542341", });
+            context.Exercises.Add(new Exercise { ExerciseNumber = 5, Lecture = "EF Core - Migrations", HelpWhere = "opg 2.7", AuId = "au136427", CourseId = "I3ISU", TAuId = "au542413", });
             context.SaveChanges();
             Console.WriteLine("Data seeded");
         }

@@ -10,7 +10,7 @@ namespace OnlineHelpSystem.Data
     {
         public DbSet<Teacher> Teachers { get; set; }
         public DbSet<Assignment> Assignments { get; set; }
-        public DbSet<Exercise> Excercises { get; set; }
+        public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
 
