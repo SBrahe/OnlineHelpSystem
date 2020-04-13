@@ -128,9 +128,9 @@ namespace OnlineHelpSystem.Data
                 );
 
             modelbuilder.Entity<Assignment>().HasData(
-                new Assignment { AssignmentNumber = 1, CourseId = "I4DAB", TAuId = "au542413" },
-                new Assignment { AssignmentNumber = 2, CourseId = "I4SWD", TAuId = "au531234" },
-                new Assignment { AssignmentNumber = 3, CourseId = "I3ISU", TAuId = "au542341" }
+                new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413" },
+                new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234" },
+                new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341" }
                 );
 
             modelbuilder.Entity<Exercise>().HasData(

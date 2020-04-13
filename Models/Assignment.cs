@@ -6,7 +6,7 @@ namespace OnlineHelpSystem.Models
 {
     class Assignment
     {
-        public int AssignmentNumber { get; set; }
+        public string AssignmentNumber { get; set; }
 
         public List<StudentAssignment> StudentAssignments { get; set; }
         //public List<Student> Students { get; set; }
