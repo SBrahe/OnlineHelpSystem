@@ -94,9 +94,22 @@ namespace OnlineHelpSystem
                     Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
                 }
             }
-    }
 
-    private static void PrintAllOpenHelpRequests(MyDbContext context)
+            //var Assignments = context.Assignments.Include(a => a.StudentAssignments);
+
+            //Console.WriteLine("Assigments: ");
+            //foreach (var assignment in Assignments)
+            //{
+            //    foreach()
+            //    if (assignment==auid)
+            //    {
+            //        Console.WriteLine("----------Assignment Help Request----------");     
+            //        Console.WriteLine($"auid: ")
+            //        Console.WriteLine("-----------------------------------------");
+            //    }
+        }
+
+        private static void PrintAllOpenHelpRequests(MyDbContext context)
     {
             //I kan teste med auid : au135848
             string auid;
