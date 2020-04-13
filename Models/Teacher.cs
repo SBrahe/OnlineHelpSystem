@@ -13,7 +13,6 @@ namespace OnlineHelpSystem.Models
         public List<Exercise> Exercises { get; set; }
 
         public string CourseId { get; set; }
-        public Course Course
-        { get; set; }
+        public Course Course { get; set; }
     }
 }
