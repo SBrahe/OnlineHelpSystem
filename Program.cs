@@ -9,80 +9,81 @@ using Microsoft.EntityFrameworkCore;
 
 namespace OnlineHelpSystem
 {
-  class Program
-  {
-    static void Main(string[] args)
+    class Program
     {
-      Console.WriteLine("OnlineHelpSystem launched");
-      using var context = new MyDbContext();
-            
-                //RemoveData(context);
-                SeedDatabase(context);
+        static void Main(string[] args)
+        {
+            Console.WriteLine("OnlineHelpSystem launched");
+            using var context = new MyDbContext();
 
-        #region Action prompts
+            //RemoveData(context);
+            SeedDatabase(context);
 
-        //CHOOSE ACTION PROMPT
-        CHOOSE_ACTION_PROMPT:
-      System.Console.WriteLine("What would you like to do?");
-      System.Console.WriteLine("1: Print open help requests for (teacher, course)");
-      System.Console.WriteLine("2: Print all open help requests");
-      System.Console.WriteLine("3: Print statistics for help requests for (course)");
-      System.Console.WriteLine("4: List all data");
-      System.Console.WriteLine("5: Create data");
-      System.Console.WriteLine("6: Exit");
-      ConsoleKeyInfo consoleKeyInfo;
-      consoleKeyInfo = Console.ReadKey();
-      switch (consoleKeyInfo.KeyChar)
-      {
-        case '1':
-          Console.WriteLine("");
-          PrintOpenHelpRequestsForTeacherCourse(context);
-          goto CHOOSE_ACTION_PROMPT;
-        case '2':
-          System.Console.WriteLine("");
-          PrintAllOpenHelpRequests(context);
-          goto CHOOSE_ACTION_PROMPT;
-        case '3':
-          System.Console.WriteLine("");
-          PrintStatisticsForCourse(context);
-          goto CHOOSE_ACTION_PROMPT;
-        case '4':
-          System.Console.WriteLine("");
-          ListAllData(context);
-          goto CHOOSE_ACTION_PROMPT;
-        case '5':
-          System.Console.WriteLine("");
-          CreateData(context);
-          goto CHOOSE_ACTION_PROMPT;
-        case '6':
-          break; 
-        default:
-          break;
-      }
-    }
-    #endregion
+            #region Action prompts
+
+            //CHOOSE ACTION PROMPT
+            CHOOSE_ACTION_PROMPT:
+            System.Console.WriteLine("What would you like to do?");
+            System.Console.WriteLine("1: Print open help requests for (teacher, course)");
+            System.Console.WriteLine("2: Print all open help requests");
+            System.Console.WriteLine("3: Print statistics for help requests for (course)");
+            System.Console.WriteLine("4: List all data");
+            System.Console.WriteLine("5: Create data");
+            System.Console.WriteLine("6: Exit");
+            ConsoleKeyInfo consoleKeyInfo;
+            consoleKeyInfo = Console.ReadKey();
+            switch (consoleKeyInfo.KeyChar)
+            {
+                case '1':
+                    Console.WriteLine("");
+                    PrintOpenHelpRequestsForTeacherCourse(context);
+                    goto CHOOSE_ACTION_PROMPT;
+                case '2':
+                    System.Console.WriteLine("");
+                    PrintAllOpenHelpRequests(context);
+                    goto CHOOSE_ACTION_PROMPT;
+                case '3':
+                    System.Console.WriteLine("");
+                    PrintStatisticsForCourse(context);
+                    goto CHOOSE_ACTION_PROMPT;
+                case '4':
+                    System.Console.WriteLine("");
+                    ListAllData(context);
+                    goto CHOOSE_ACTION_PROMPT;
+                case '5':
+                    System.Console.WriteLine("");
+                    CreateData(context);
+                    goto CHOOSE_ACTION_PROMPT;
+                case '6':
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        #endregion
 
         #region Print specifics
+
         private static void PrintOpenHelpRequestsForTeacherCourse(MyDbContext context)
-    {
+        {
             //au542413 - Kan bruges som eksempel på søgning
             //I4DAB
 
             string teacher;
             string course;
-      Console.WriteLine("Choose teacher AuId: ");      
-      teacher = Console.ReadLine();
+            Console.WriteLine("Choose teacher AuId: ");
+            teacher = Console.ReadLine();
 
-      Console.WriteLine("Choose Course id: " + Environment.NewLine);
-      course = Console.ReadLine();
+            Console.WriteLine("Choose Course id: " + Environment.NewLine);
+            course = Console.ReadLine();
             Console.WriteLine("Exercise help Request(s): ");
             foreach (var exercise in context.Exercises)
             {
                 if (exercise.TAuId == teacher && exercise.CourseId == course)
-                {                  
+                {
                     Console.WriteLine(exercise.HelpWhere);
-                    exercise.Open = true;
-                }               
+                }
             }
 
             Console.WriteLine("");
@@ -93,156 +94,148 @@ namespace OnlineHelpSystem
                 if (assignment.TAuId == teacher && assignment.CourseId == course)
                 {
                     Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
-                    assignment.Open = true;
                 }
             }
-
-            //var Assignments = context.Assignments.Include(a => a.StudentAssignments);
-
-            //Console.WriteLine("Assigments: ");
-            //foreach (var assignment in Assignments)
-            //{
-            //    foreach()
-            //    if (assignment==auid)
-            //    {
-            //        Console.WriteLine("----------Assignment Help Request----------");     
-            //        Console.WriteLine($"auid: ")
-            //        Console.WriteLine("-----------------------------------------");
-            //    }
         }
 
         private static void PrintAllOpenHelpRequests(MyDbContext context)
-    {
+        {
             //I kan teste med auid : au135848
             string auid;
             Student student;
-            
+
             Console.WriteLine("Input Student Auid: ");
             auid = Console.ReadLine();
             try
             {
-               student = context.Students.Where(s => s.AuId == auid).Single();
+                student = context.Students.Where(s => s.AuId == auid).Single();
             }
             catch
             {
-                Console.WriteLine("Student does not exist");                
+                Console.WriteLine("Student does not exist");
+
             }
 
             Console.WriteLine("Exercises: ");
             foreach (var exercise in context.Exercises)
             {
-                if(exercise.AuId == auid)
+                if (exercise.AuId == auid)
                 {
                     Console.WriteLine("----------Exercise Help Request----------");
-                    Console.WriteLine($"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
-                    $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
+                    Console.WriteLine(
+                        $"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
+                        $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
                     Console.WriteLine("-----------------------------------------");
                 }
             }
-    }
+        }
 
         private static void PrintStatisticsForCourse(MyDbContext context)
-    {
-        string courseId;
-        Course course;
+        {
+            string courseId;
+            Course course;
 
-        Console.WriteLine("Choose Course id: " + Environment.NewLine);
-        courseId = Console.ReadLine();
-        try
-        {
-            course = context.Courses.Where(s => s.CourseId == courseId).Single();
-        }
-        catch
-        {
-            Console.WriteLine("Course does not exist");
-        }
-        
-        foreach (var exercise in context.Exercises)
-        {
-            if (exercise.CourseId == courseId)
+            Console.WriteLine("Choose Course id: " + Environment.NewLine);
+            courseId = Console.ReadLine();
+            try
             {
-                Console.WriteLine("----------Exercise Help Request----------");
-                Console.WriteLine($"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
-                                  $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
-                Console.WriteLine("-----------------------------------------");
+                course = context.Courses.Where(s => s.CourseId == courseId).Single();
+            }
+            catch
+            {
+                Console.WriteLine("Course does not exist");
+            }
+
+            foreach (var exercise in context.Exercises)
+            {
+                if (exercise.CourseId == courseId && exercise.Open == true)
+                {
+                    Console.WriteLine("----------Open Exercise Help Requests----------");
+                    Console.WriteLine(
+                        $"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
+                        $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
+                    Console.WriteLine("-----------------------------------------");
+                }
+            }
+
+            foreach (var exercise in context.Exercises)
+            {
+                if (exercise.CourseId == courseId && exercise.Open == false)
+                {
+                    Console.WriteLine("----------Closed Exercise Help Requests----------");
+                    Console.WriteLine(
+                        $"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
+                        $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
+                    Console.WriteLine("-----------------------------------------");
+                }
             }
         }
-        
-        // foreach (var assignment in context.Assignments)
-        // {
-        //     if (assignment.CourseId == courseId)
-        //     {
-        //         Console.WriteLine("----------Assignment Help Request----------");
-        //         Console.WriteLine($"Assignment Number: {assignment.AssignmentNumber},  Help where?: " +
-        //                           $"{Assignment.HelpWhere}, Student Auid: {Assignment.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
-        //         Console.WriteLine("-----------------------------------------");
-        //     }
-        // }
-        
-    }
-        
-
         #endregion
 
-        #region List all data
-
-        private static void ListAllData(MyDbContext context)
+    #region List all data
+    private static void ListAllData(MyDbContext context)
     {
-      System.Console.WriteLine("LISTING ALL DATA"); 
-      //list all students
-      System.Console.WriteLine("___ALL STUDENTS___"); 
-      var studentList =context.Students.ToList();
-      
-      foreach (var student in studentList)
-      {
+    System.Console.WriteLine("LISTING ALL DATA");
+
+    //list all students
+    System.Console.WriteLine("___ALL STUDENTS___");
+
+    var studentList = context.Students.ToList();
+
+        foreach (var student in studentList)
+    {
         System.Console.WriteLine(student.Name);
-      }
-      System.Console.WriteLine("");
+    }
+    System.Console.WriteLine("");
 
-      //list all teachers
-      System.Console.WriteLine("___ALL TEACHERS___");
-      var teacherList =context.Teachers.ToList();
-      
-      foreach (var teacher in teacherList)
-      {
+    //list all teachers
+    System.Console.WriteLine("___ALL TEACHERS___");
+
+    var teacherList = context.Teachers.ToList();
+
+        foreach (var teacher in teacherList)
+    {
         System.Console.WriteLine(teacher.Name);
-      }
-      System.Console.WriteLine("");
+    }
+    System.Console.WriteLine("");
 
-      //list all courses
-      System.Console.WriteLine("___ALL COURSES___");
-      var courseList =context.Courses.ToList();
-      
-      foreach (var course in courseList)
-      {
+    //list all courses
+    System.Console.WriteLine("___ALL COURSES___");
+
+    var courseList = context.Courses.ToList();
+
+        foreach (var course in courseList)
+    {
         System.Console.WriteLine(course.Name);
-      }
-      System.Console.WriteLine("");
+    }
+    System.Console.WriteLine("");
 
-      //list all exercises
-      System.Console.WriteLine("___ALL EXERCISES___");
-      var exerciseList =context.Exercises.ToList();
-      
-      foreach (var exercise in exerciseList)
-      {
+    //list all exercises
+    System.Console.WriteLine("___ALL EXERCISES___");
+
+    var exerciseList = context.Exercises.ToList();
+
+        foreach (var exercise in exerciseList)
+    {
         System.Console.WriteLine(exercise.ExerciseNumber);
-      }
-      System.Console.WriteLine("");
+    }
+    System.Console.WriteLine("");
 
-      //list all assignments
-      System.Console.WriteLine("___ALL ASSIGNMENTS___");
-      var assignmentList =context.Assignments.ToList();
-      
-      foreach (var assignment in assignmentList)
-      {
+    //list all assignments
+    System.Console.WriteLine("___ALL ASSIGNMENTS___");
+
+    var assignmentList = context.Assignments.ToList();
+
+        foreach (var assignment in assignmentList)
+    {
         System.Console.WriteLine(assignment.AssignmentNumber);
-      }
-      System.Console.WriteLine("");
+    }
+    System.Console.WriteLine("");
     }
 
-        #endregion
+    #endregion
 
-        #region Create Data
+#region Create Data
         private static void CreateData(MyDbContext context)
     {
             string id;
