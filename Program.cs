@@ -128,33 +128,11 @@ namespace OnlineHelpSystem
                     Console.WriteLine("-----------------------------------------");
                 }
             }
-
-            //Console.WriteLine("Assigments: ");
-            //foreach (var assignment in context.Assignments)
-            //{
-            //    if ()
-            //    {
-            //        Console.WriteLine("----------Assignment Help Request----------");     //Kan ikke få listet assigments request ud fra Student. 
-            //       Console.WriteLine($"auid: {}")
-            //        Console.WriteLine("-----------------------------------------");
-            //    }
-
-
-            //}
     }
 
         private static void PrintStatisticsForCourse(MyDbContext context)
     {
-      // string course;
-      // System.Console.WriteLine("Choose course");
-      // course = Console.ReadLine();
-      //
-      // course = context.Courses.Include(p => p.Name);
-      //   
-      // foreach (var course in context.Courses.Include(p => p.Name).ToList())
-      // {
-      //   System.Console.WriteLine(course);
-      // }
+
     }
 
         #endregion
