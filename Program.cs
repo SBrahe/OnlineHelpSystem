@@ -19,10 +19,10 @@ namespace OnlineHelpSystem
                 RemoveData(context);
                 SeedDatabase(context);
 
-      
-      
-      //CHOOSE ACTION PROMPT
-      CHOOSE_ACTION_PROMPT:
+        #region Action prompts
+
+        //CHOOSE ACTION PROMPT
+        CHOOSE_ACTION_PROMPT:
       System.Console.WriteLine("What would you like to do?");
       System.Console.WriteLine("1: Print open help requests for (teacher, course)");
       System.Console.WriteLine("2: Print all open help requests");
@@ -61,7 +61,11 @@ namespace OnlineHelpSystem
       }
     }
 
-    private static void PrintOpenHelpRequestsForTeacherCourse(MyDbContext context)
+        #endregion
+
+
+        #region Print specifics
+        private static void PrintOpenHelpRequestsForTeacherCourse(MyDbContext context)
     {
             //au542413 - Kan bruges som eksempel på søgning
             //I4DAB
@@ -98,11 +102,49 @@ namespace OnlineHelpSystem
 
     private static void PrintAllOpenHelpRequests(MyDbContext context)
     {
-       
+            //I kan teste med auid : au135848
+            string auid;
+            Student student;
+            
+            Console.WriteLine("Input Student Auid: ");
+            auid = Console.ReadLine();
+            try
+            {
+               student = context.Students.Where(s => s.AuId == auid).Single();
+            }
+            catch
+            {
+                Console.WriteLine("Student does not exist");
+                
+            }
+
+            Console.WriteLine("Exercises: ");
+            foreach (var exercise in context.Excercises)
+            {
+                if(exercise.AuId == auid)
+                {
+                    Console.WriteLine("----------Exercise Help Request----------");
+                    Console.WriteLine($"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
+                    $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
+                    Console.WriteLine("-----------------------------------------");
+                }
+            }
+
+            //Console.WriteLine("Assigments: ");
+            //foreach (var assignment in context.Assignments)
+            //{
+            //    if ()
+            //    {
+            //        Console.WriteLine("----------Assignment Help Request----------");     //Kan ikke få listet assigments request ud fra Student. 
+            //       Console.WriteLine($"auid: {}")
+            //        Console.WriteLine("-----------------------------------------");
+            //    }
+
+
+            //}
     }
 
-
-    private static void PrintStatisticsForCourse(MyDbContext context)
+        private static void PrintStatisticsForCourse(MyDbContext context)
     {
       // string course;
       // System.Console.WriteLine("Choose course");
@@ -116,7 +158,11 @@ namespace OnlineHelpSystem
       // }
     }
 
-    private static void ListAllData(MyDbContext context)
+        #endregion
+
+        #region List all data
+
+        private static void ListAllData(MyDbContext context)
     {
       System.Console.WriteLine("LISTING ALL DATA"); 
       //list all students
@@ -170,7 +216,10 @@ namespace OnlineHelpSystem
       System.Console.WriteLine("");
     }
 
-    private static void CreateData(MyDbContext context)
+        #endregion
+
+        #region Create Data
+        private static void CreateData(MyDbContext context)
     {
             string id;
             string name;
@@ -357,8 +406,9 @@ namespace OnlineHelpSystem
                     break;
             }
     }
+        #endregion
 
-
+        #region Remove Data
 
         private static void RemoveData(MyDbContext context)
         {
@@ -388,6 +438,9 @@ namespace OnlineHelpSystem
         }
 
 
+        #endregion
+
+        #region SeedDatabase
 
         private static void SeedDatabase(MyDbContext context)
         {
@@ -419,5 +472,7 @@ namespace OnlineHelpSystem
             context.SaveChanges();
             Console.WriteLine("Data seeded");
         }
+
+        #endregion
     }
 }
