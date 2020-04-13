@@ -227,17 +227,18 @@ namespace OnlineHelpSystem
             int exnumber;
             string asnumber;
             string helpwhere;
-            string lecture;
-      System.Console.WriteLine("What would you like to do?");
-      System.Console.WriteLine("1: Create new course");
-      System.Console.WriteLine("2: Create new student");
-      System.Console.WriteLine("3: Create new teacher");
-      System.Console.WriteLine("4: Create new assignment help request");
-      System.Console.WriteLine("5: Create new exercise help request");
-      ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
-      switch (consoleKeyInfo.KeyChar)
-      {
-        case '1': //create new course
+            string lecture; 
+            
+            System.Console.WriteLine("What would you like to do?"); 
+            System.Console.WriteLine("1: Create new course"); 
+            System.Console.WriteLine("2: Create new student"); 
+            System.Console.WriteLine("3: Create new teacher"); 
+            System.Console.WriteLine("4: Create new assignment help request"); 
+            System.Console.WriteLine("5: Create new exercise help request"); 
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey(); 
+            switch (consoleKeyInfo.KeyChar) 
+            { 
+                case '1': //create new course
           System.Console.WriteLine("Input course ID:");
           id = Console.ReadLine();
           System.Console.WriteLine("Input course name:");
@@ -451,11 +452,12 @@ namespace OnlineHelpSystem
             context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager", });
             context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech", });
 
-            context.Courses.Add(new Course { CourseId = "I4DAB", Name = "Databaser", });
+            Course course1 = new Course { CourseId = "I4DAB", Name = "Databaser"};
+            context.Courses.Add(course1);
             context.Courses.Add(new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling", });
             context.Courses.Add(new Course { CourseId = "I4SWD", Name = "Software Design2345", });
 
-            context.Teachers.Add(new Teacher { TAuId = "au758313", Name = "Lars Larsen" });
+            context.Teachers.Add(new Teacher { TAuId = "au758313", Name = "Lars Larsen", CourseId = "I4DAB", Course = course1});
             context.Teachers.Add(new Teacher { TAuId = "au542341", Name = "Barack Obama" });
             context.Teachers.Add(new Teacher { TAuId = "au542413", Name = "Joe Exotic" });
             context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman" });

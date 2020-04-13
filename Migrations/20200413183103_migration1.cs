@@ -2,7 +2,7 @@
 
 namespace OnlineHelpSystem.Migrations
 {
-    public partial class Snapshot3 : Migration
+    public partial class migration1 : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

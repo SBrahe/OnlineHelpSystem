@@ -9,8 +9,8 @@ using OnlineHelpSystem.Data;
 namespace OnlineHelpSystem.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200413174817_Snapshot3")]
-    partial class Snapshot3
+    [Migration("20200413183103_migration1")]
+    partial class migration1
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
