@@ -36,6 +36,8 @@ namespace OnlineHelpSystem.Data
                .HasForeignKey(t => t.CourseId);
 
             //Assignments
+            modelbuilder.Entity<Assignment>().Property(a => a.Open).HasDefaultValue(false);      
+               
             modelbuilder.Entity<Assignment>()
                 .HasKey(a => a.AssignmentNumber);
             
@@ -51,6 +53,8 @@ namespace OnlineHelpSystem.Data
 
 
             //Exercises
+            modelbuilder.Entity<Exercise>().Property(e => e.Open).HasDefaultValue(false);
+
             modelbuilder.Entity<Exercise>()
                 .HasKey(e => new { e.Lecture, e.ExerciseNumber });
 

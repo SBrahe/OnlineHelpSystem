@@ -9,8 +9,8 @@ using OnlineHelpSystem.Data;
 namespace OnlineHelpSystem.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200413183103_migration1")]
-    partial class migration1
+    [Migration("20200413182331_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,6 +27,9 @@ namespace OnlineHelpSystem.Migrations
 
                     b.Property<string>("CourseId")
                         .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("Open")
+                        .HasColumnType("bit");
 
                     b.Property<string>("TAuId")
                         .HasColumnType("nvarchar(450)");
@@ -70,6 +73,9 @@ namespace OnlineHelpSystem.Migrations
                     b.Property<string>("HelpWhere")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("Open")
+                        .HasColumnType("bit");
+
                     b.Property<string>("TAuId")
                         .HasColumnType("nvarchar(450)");
 
@@ -81,7 +87,7 @@ namespace OnlineHelpSystem.Migrations
 
                     b.HasIndex("TAuId");
 
-                    b.ToTable("Exercises");
+                    b.ToTable("Excercises");
                 });
 
             modelBuilder.Entity("OnlineHelpSystem.Models.Student", b =>

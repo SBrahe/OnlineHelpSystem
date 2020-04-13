@@ -60,8 +60,7 @@ namespace OnlineHelpSystem
           break;
       }
     }
-
-        #endregion
+    #endregion
 
         #region Print specifics
         private static void PrintOpenHelpRequestsForTeacherCourse(MyDbContext context)
@@ -95,9 +94,7 @@ namespace OnlineHelpSystem
                     Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
                 }
             }
-
-
-        }
+    }
 
     private static void PrintAllOpenHelpRequests(MyDbContext context)
     {
@@ -128,37 +125,48 @@ namespace OnlineHelpSystem
                     Console.WriteLine("-----------------------------------------");
                 }
             }
-
-            //var Assignments = context.Assignments.Include(a => a.StudentAssignments);
-
-            //Console.WriteLine("Assigments: ");
-            //foreach (var assignment in Assignments)
-            //{
-            //    foreach()
-            //    if (assignment==auid)
-            //    {
-            //        Console.WriteLine("----------Assignment Help Request----------");     
-            //        Console.WriteLine($"auid: ")
-            //        Console.WriteLine("-----------------------------------------");
-            //    }
-
-
-            //}
-        }
+    }
 
         private static void PrintStatisticsForCourse(MyDbContext context)
     {
-      // string course;
-      // System.Console.WriteLine("Choose course");
-      // course = Console.ReadLine();
-      //
-      // course = context.Courses.Include(p => p.Name);
-      //   
-      // foreach (var course in context.Courses.Include(p => p.Name).ToList())
-      // {
-      //   System.Console.WriteLine(course);
-      // }
+        string courseId;
+        Course course;
+
+        Console.WriteLine("Choose Course id: " + Environment.NewLine);
+        courseId = Console.ReadLine();
+        try
+        {
+            course = context.Courses.Where(s => s.CourseId == courseId).Single();
+        }
+        catch
+        {
+            Console.WriteLine("Course does not exist");
+        }
+        
+        foreach (var exercise in context.Exercises)
+        {
+            if (exercise.CourseId == courseId)
+            {
+                Console.WriteLine("----------Exercise Help Request----------");
+                Console.WriteLine($"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
+                                  $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
+                Console.WriteLine("-----------------------------------------");
+            }
+        }
+        
+        foreach (var assignment in context.Assignments)
+        {
+            if (assignment.CourseId == courseId)
+            {
+                Console.WriteLine("----------Assignment Help Request----------");
+                Console.WriteLine($"Assignment Number: {assignment.AssignmentNumber},  Help where?: " +
+                                  $"{Assignment.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
+                Console.WriteLine("-----------------------------------------");
+            }
+        }
+        
     }
+        
 
         #endregion
 
@@ -454,6 +462,7 @@ namespace OnlineHelpSystem
             context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe", });
             context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager", });
             context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech", });
+            context.Students.Add(new Student { AuId = "au135847", Name = "Hugh Mungus", });
 
             Course course1 = new Course { CourseId = "I4DAB", Name = "Databaser"};
             context.Courses.Add(course1);
