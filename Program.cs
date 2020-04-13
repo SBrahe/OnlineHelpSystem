@@ -15,9 +15,18 @@ namespace OnlineHelpSystem
         {
             Console.WriteLine("OnlineHelpSystem launched");
             using var context = new MyDbContext();
-
-            //RemoveData(context);
-            SeedDatabase(context);
+            //SEED DATABASE PROMPT
+            System.Console.WriteLine("y/n: Seed database?");
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+            if (consoleKeyInfo.KeyChar == 'y')
+            {
+                System.Console.WriteLine("");
+                SeedDatabase(context);
+            }
+            else
+            {
+                System.Console.WriteLine("");
+            }
 
             #region Action prompts
 
@@ -30,7 +39,6 @@ namespace OnlineHelpSystem
             System.Console.WriteLine("4: List all data");
             System.Console.WriteLine("5: Create data");
             System.Console.WriteLine("6: Exit");
-            ConsoleKeyInfo consoleKeyInfo;
             consoleKeyInfo = Console.ReadKey();
             switch (consoleKeyInfo.KeyChar)
             {
@@ -83,7 +91,8 @@ namespace OnlineHelpSystem
                 if (exercise.TAuId == teacher && exercise.CourseId == course)
                 {
                     Console.WriteLine(exercise.HelpWhere);
-                }
+                    exercise.Open = true;                    
+                }               
             }
 
             Console.WriteLine("");
@@ -94,8 +103,23 @@ namespace OnlineHelpSystem
                 if (assignment.TAuId == teacher && assignment.CourseId == course)
                 {
                     Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
+                    assignment.Open = true;                    
                 }
             }
+            context.SaveChanges(); //To open help-request
+
+            //var Assignments = context.Assignments.Include(a => a.StudentAssignments);
+
+            //Console.WriteLine("Assigments: ");
+            //foreach (var assignment in Assignments)
+            //{
+            //    foreach()
+            //    if (assignment==auid)
+            //    {
+            //        Console.WriteLine("----------Assignment Help Request----------");     
+            //        Console.WriteLine($"auid: ")
+            //        Console.WriteLine("-----------------------------------------");
+            //    }
         }
 
         private static void PrintAllOpenHelpRequests(MyDbContext context)
@@ -149,8 +173,11 @@ namespace OnlineHelpSystem
         {
             string courseId;
             Course course;
+            int allhelprequests = 0;
+            int openhelprequests = 0;
+            int closedhelprequests = 0;
 
-            Console.WriteLine("Choose Course id: " + Environment.NewLine);
+            Console.WriteLine("Choose Course id:");
             courseId = Console.ReadLine();
             try
             {
@@ -160,30 +187,48 @@ namespace OnlineHelpSystem
             {
                 Console.WriteLine("Course does not exist");
             }
-
+            
+            //find open exercise help requests for course
             foreach (var exercise in context.Exercises)
             {
                 if (exercise.CourseId == courseId && exercise.Open == false)
                 {
-                    Console.WriteLine("----------Open Exercise Help Requests----------");
-                    Console.WriteLine(
-                        $"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
-                        $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
-                    Console.WriteLine("-----------------------------------------");
+                    ++openhelprequests;
+                    ++allhelprequests;
                 }
             }
-
+            //find open assignment help requests for course
+            foreach (var assignment in context.Exercises)
+            {
+                if (assignment.CourseId == courseId && assignment.Open == true)
+                {
+                    ++openhelprequests;
+                    ++allhelprequests;
+                }
+            }
+            //find closed exercise help requests for course
             foreach (var exercise in context.Exercises)
             {
                 if (exercise.CourseId == courseId && exercise.Open == true)
                 {
-                    Console.WriteLine("----------Closed Exercise Help Requests----------");
-                    Console.WriteLine(
-                        $"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
-                        $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
-                    Console.WriteLine("-----------------------------------------");
+                    ++closedhelprequests;
+                    ++allhelprequests;
                 }
             }
+            
+            //find closed assignment help requests for course
+            foreach (var exercise in context.Exercises)
+            {
+                if (exercise.CourseId == courseId && exercise.Open == false)
+                {
+                    ++closedhelprequests;
+                    ++allhelprequests;
+                }
+            }
+            System.Console.WriteLine("PRINTING HELP REQUESTS STATISTICS "+courseId);
+            Console.WriteLine("Help Requests: "+allhelprequests);
+            Console.WriteLine("Open: "+openhelprequests);
+            Console.WriteLine("Closed : "+closedhelprequests);
         }
         #endregion
 
@@ -497,15 +542,15 @@ namespace OnlineHelpSystem
             context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman" });
             context.Teachers.Add(new Teacher { TAuId = "au1241245", Name = "Phoebe Buffay" });
 
-            context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", });
-            context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", });
-            context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", });
+            context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", Open = false});
+            context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", Open = true});
+            context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", Open = false});
             
-            context.Exercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413", });            
-            context.Exercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413", });
-            context.Exercises.Add(new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234", });
-            context.Exercises.Add(new Exercise { ExerciseNumber = 4, Lecture = "Umulig c++", HelpWhere = "opg 42.4", AuId = "au963454", CourseId = "I3ISU", TAuId = "au542341", });
-            context.Exercises.Add(new Exercise { ExerciseNumber = 5, Lecture = "EF Core - Migrations", HelpWhere = "opg 2.7", AuId = "au136427", CourseId = "I3ISU", TAuId = "au542413", });
+            context.Exercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413", Open = false});            
+            context.Exercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413", Open = true});
+            context.Exercises.Add(new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234", Open = false});
+            context.Exercises.Add(new Exercise { ExerciseNumber = 4, Lecture = "Umulig c++", HelpWhere = "opg 42.4", AuId = "au963454", CourseId = "I3ISU", TAuId = "au542341", Open = true});
+            context.Exercises.Add(new Exercise { ExerciseNumber = 5, Lecture = "EF Core - Migrations", HelpWhere = "opg 2.7", AuId = "au136427", CourseId = "I3ISU", TAuId = "au542413", Open = false});
             context.SaveChanges();
             Console.WriteLine("Data seeded");
         }
