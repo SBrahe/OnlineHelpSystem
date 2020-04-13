@@ -119,7 +119,7 @@ namespace OnlineHelpSystem
             Console.WriteLine("Exercises: ");
             foreach (var exercise in context.Exercises)
             {
-                if (exercise.AuId == auid)
+                if (exercise.AuId == auid && exercise.Open==true)
                 {
                     Console.WriteLine("----------Exercise Help Request----------");
                     Console.WriteLine(
@@ -128,6 +128,21 @@ namespace OnlineHelpSystem
                     Console.WriteLine("-----------------------------------------");
                 }
             }
+
+
+
+            Console.WriteLine("Assigments: ");
+            foreach (var assignments in context.StudentAssigments)
+            {
+                    if (assignments.AuId==auid && assignments.Assignment.Open==true)
+                    {
+                        Console.WriteLine("----------Assignment Help Request----------");
+                        Console.WriteLine($"Assignment number: {assignments.AssignmentNumber}, Help Where?: {assignments.Assignment.HelpWhere} " +
+                            $"Student AuID: {assignments.AuId} Course Id: {assignments.Assignment.CourseId}, Teacher AuID: {assignments.Assignment.TAuId}");
+                        Console.WriteLine("-----------------------------------------");
+                    }
+            }
+
         }
 
         private static void PrintStatisticsForCourse(MyDbContext context)
@@ -148,7 +163,7 @@ namespace OnlineHelpSystem
 
             foreach (var exercise in context.Exercises)
             {
-                if (exercise.CourseId == courseId && exercise.Open == true)
+                if (exercise.CourseId == courseId && exercise.Open == false)
                 {
                     Console.WriteLine("----------Open Exercise Help Requests----------");
                     Console.WriteLine(
@@ -160,7 +175,7 @@ namespace OnlineHelpSystem
 
             foreach (var exercise in context.Exercises)
             {
-                if (exercise.CourseId == courseId && exercise.Open == false)
+                if (exercise.CourseId == courseId && exercise.Open == true)
                 {
                     Console.WriteLine("----------Closed Exercise Help Requests----------");
                     Console.WriteLine(

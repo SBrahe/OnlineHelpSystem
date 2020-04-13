@@ -13,6 +13,7 @@ namespace OnlineHelpSystem.Data
         public DbSet<Exercise> Exercises { get; set; }
         public DbSet<Student> Students { get; set; }
         public DbSet<Course> Courses { get; set; }
+        public DbSet<StudentAssignment> StudentAssigments { get; set; }
 
 
 
@@ -36,7 +37,7 @@ namespace OnlineHelpSystem.Data
                .HasForeignKey(t => t.CourseId);
 
             //Assignments
-            modelbuilder.Entity<Assignment>().Property(a => a.Open).HasDefaultValue(false);      
+            modelbuilder.Entity<Assignment>().Property(a => a.Open).HasDefaultValue(true);      
                
             modelbuilder.Entity<Assignment>()
                 .HasKey(a => a.AssignmentNumber);
@@ -53,7 +54,7 @@ namespace OnlineHelpSystem.Data
 
 
             //Exercises
-            modelbuilder.Entity<Exercise>().Property(e => e.Open).HasDefaultValue(false);
+            modelbuilder.Entity<Exercise>().Property(e => e.Open).HasDefaultValue(true);
 
             modelbuilder.Entity<Exercise>()
                 .HasKey(e => new { e.Lecture, e.ExerciseNumber });
