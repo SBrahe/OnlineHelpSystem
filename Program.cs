@@ -15,9 +15,18 @@ namespace OnlineHelpSystem
         {
             Console.WriteLine("OnlineHelpSystem launched");
             using var context = new MyDbContext();
-
-            //RemoveData(context);
-            SeedDatabase(context);
+            //SEED DATABASE PROMPT
+            System.Console.WriteLine("y/n: Seed database?");
+            ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
+            if (consoleKeyInfo.KeyChar == 'y')
+            {
+                System.Console.WriteLine("\n");
+                SeedDatabase(context);
+            }
+            else
+            {
+                System.Console.WriteLine("\n");
+            }
 
             #region Action prompts
 
@@ -30,7 +39,6 @@ namespace OnlineHelpSystem
             System.Console.WriteLine("4: List all data");
             System.Console.WriteLine("5: Create data");
             System.Console.WriteLine("6: Exit");
-            ConsoleKeyInfo consoleKeyInfo;
             consoleKeyInfo = Console.ReadKey();
             switch (consoleKeyInfo.KeyChar)
             {
@@ -134,8 +142,10 @@ namespace OnlineHelpSystem
         {
             string courseId;
             Course course;
+            int openhelprequests = 0;
+            int closedhelprequests = 0;
 
-            Console.WriteLine("Choose Course id: " + Environment.NewLine);
+            Console.WriteLine("Choose Course id:");
             courseId = Console.ReadLine();
             try
             {
@@ -145,30 +155,43 @@ namespace OnlineHelpSystem
             {
                 Console.WriteLine("Course does not exist");
             }
-
+            
+            //find open exercise help requests for course
             foreach (var exercise in context.Exercises)
             {
                 if (exercise.CourseId == courseId && exercise.Open == true)
                 {
-                    Console.WriteLine("----------Open Exercise Help Requests----------");
-                    Console.WriteLine(
-                        $"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
-                        $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
-                    Console.WriteLine("-----------------------------------------");
+                    ++openhelprequests;
                 }
             }
-
+            //find open assignment help requests for course
+            foreach (var assignment in context.Exercises)
+            {
+                if (assignment.CourseId == courseId && assignment.Open == true)
+                {
+                    ++openhelprequests;
+                }
+            }
+            //find closed exercise help requests for course
             foreach (var exercise in context.Exercises)
             {
                 if (exercise.CourseId == courseId && exercise.Open == false)
                 {
-                    Console.WriteLine("----------Closed Exercise Help Requests----------");
-                    Console.WriteLine(
-                        $"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
-                        $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
-                    Console.WriteLine("-----------------------------------------");
+                    ++closedhelprequests;
                 }
             }
+            
+            //find closed assignment help requests for course
+            foreach (var exercise in context.Exercises)
+            {
+                if (exercise.CourseId == courseId && exercise.Open == false)
+                {
+                    ++closedhelprequests;
+                }
+            }
+
+            Console.WriteLine("Open Exercise Help Requests: "+openhelprequests);
+            Console.WriteLine("Closed Exercise Help Requests: "+closedhelprequests);
         }
         #endregion
 
