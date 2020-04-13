@@ -105,40 +105,40 @@ namespace OnlineHelpSystem.Data
 
             //adding data
 
-            modelbuilder.Entity<Student>().HasData(
-            new Student { AuId = "au135848", Name = "Soeren Brostroem" },
-            new Student {AuId = "au135333", Name = "Hanne Lind"},
-            new Student { AuId = "au145532", Name = "Soeren Brahe" },
-            new Student { AuId = "au136427", Name = "Flemming Dalager" },
-            new Student { AuId = "au963454", Name = "Mogens Bech" }
-            );
+            //modelbuilder.Entity<Student>().HasData(
+            //new Student { AuId = "au135848", Name = "Soeren Brostroem" },
+            //new Student {AuId = "au135333", Name = "Hanne Lind"},
+            //new Student { AuId = "au145532", Name = "Soeren Brahe" },
+            //new Student { AuId = "au136427", Name = "Flemming Dalager" },
+            //new Student { AuId = "au963454", Name = "Mogens Bech" }
+            //);
 
-            modelbuilder.Entity<Course>().HasData(
-            new Course { CourseId = "I4DAB", Name = "Databaser" },
-            new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling" },
-            new Course { CourseId = "I4SWD", Name = "Software Design2345" }
-                );
+            //modelbuilder.Entity<Course>().HasData(
+            //new Course { CourseId = "I4DAB", Name = "Databaser" },
+            //new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling" },
+            //new Course { CourseId = "I4SWD", Name = "Software Design2345" }
+            //    );
 
-            modelbuilder.Entity<Teacher>().HasData(
-            new Teacher { TAuId = "au758313", Name = "Lars Larsen" },
-            new Teacher { TAuId = "au542341", Name = "Barack Obama" },
-            new Teacher { TAuId = "au542413", Name = "Joe Exotic" },
-            new Teacher { TAuId = "au531234", Name = "Saul Goodman" },
-            new Teacher { TAuId = "au1241245", Name = "Phoebe Buffay" }
-                );
+            //modelbuilder.Entity<Teacher>().HasData(
+            //new Teacher { TAuId = "au758313", Name = "Lars Larsen" },
+            //new Teacher { TAuId = "au542341", Name = "Barack Obama" },
+            //new Teacher { TAuId = "au542413", Name = "Joe Exotic" },
+            //new Teacher { TAuId = "au531234", Name = "Saul Goodman" },
+            //new Teacher { TAuId = "au1241245", Name = "Phoebe Buffay" }
+            //    );
 
-            modelbuilder.Entity<Assignment>().HasData(
-                new Assignment { AssignmentNumber = 1, CourseId = "I4DAB", TAuId = "au542413" },
-                new Assignment { AssignmentNumber = 2, CourseId = "I4SWD", TAuId = "au531234" },
-                new Assignment { AssignmentNumber = 3, CourseId = "I3ISU", TAuId = "au542341" }
-                );
+            //modelbuilder.Entity<Assignment>().HasData(
+            //    new Assignment { AssignmentNumber = 1, CourseId = "I4DAB", TAuId = "au542413" },
+            //    new Assignment { AssignmentNumber = 2, CourseId = "I4SWD", TAuId = "au531234" },
+            //    new Assignment { AssignmentNumber = 3, CourseId = "I3ISU", TAuId = "au542341" }
+            //    );
 
-            modelbuilder.Entity<Exercise>().HasData(
-                new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413" },
-                new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413" },
-                new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234" },
-                new Exercise { ExerciseNumber = 4, Lecture = "Umulig c++", HelpWhere = "opg 42.4", AuId = "au963454", CourseId = "I3ISU", TAuId = "au542341" }
-                );
+            //modelbuilder.Entity<Exercise>().HasData(
+            //    new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413" },
+            //    new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413" },
+            //    new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234" },
+            //    new Exercise { ExerciseNumber = 4, Lecture = "Umulig c++", HelpWhere = "opg 42.4", AuId = "au963454", CourseId = "I3ISU", TAuId = "au542341" }
+            //    );
         }
     }
 }

@@ -15,9 +15,13 @@ namespace OnlineHelpSystem
     {
       Console.WriteLine("OnlineHelpSystem launched");
       using var context = new MyDbContext();
-      
-      //SEED DATABASE PROMPT
-      System.Console.WriteLine("y/n: Seed database?");
+            RemoveData(context);
+            SeedDatabase(context);
+
+
+
+            //SEED DATABASE PROMPT
+            System.Console.WriteLine("y/n: Seed database?");
       ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
       if (consoleKeyInfo.KeyChar == 'y')
       {
@@ -82,7 +86,6 @@ namespace OnlineHelpSystem
     private static void PrintAllOpenHelpRequests(MyDbContext context)
     {
        
-
     }
 
     private static void PrintStatisticsForCourse(MyDbContext context)
@@ -247,40 +250,113 @@ namespace OnlineHelpSystem
       }
     }
 
-        //private static void SeedDatabase(MyDbContext context)
-        //{
-        //  //delete and recreate database
-        //  context.Database.EnsureDeleted();
-        //  context.Database.EnsureCreated();
-
-        //  //create students
-        //  context.Students.Add(new Student { AuId = "au135848", Name = "Soeren Brostroem",});
-        //  context.Students.Add(new Student { AuId = "au135333", Name = "Hanne Lind",});
-        //  context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe",});
-        //  context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager",});
-        //  context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech",});
-        //  context.SaveChanges();
-
-        //  //create teachers
-        //  context.Teachers.Add(new Teacher { TAuId = "au758313", Name = "Lars Larsen",});
-        //  context.Teachers.Add(new Teacher { TAuId = "au542341", Name = "Barack Obama",});
-        //  context.Teachers.Add(new Teacher { TAuId = "au542413", Name = "Joe Exotic",});
-        //  context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman",});
-        //  context.Teachers.Add(new Teacher {TAuId = "au1241245", Name = "Phoebe Buffay",});
-        //  context.SaveChanges();
-
-        //  //create courses
-        //  context.Courses.Add(new Course { CourseId = "I4DAB", Name = "Databaser",});
-        //  context.Courses.Add(new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling"});
-        //  context.Courses.Add(new Course { CourseId = "I4SWD", Name = "Software Design",});
-        //  context.SaveChanges();
-
-        //  //create assignments
 
 
-        //  //create exercises
+        private static void RemoveData(MyDbContext context)
+        {
+            foreach (var teacher in context.Teachers)
+            {
+                context.Teachers.Remove(teacher);
+            }
+            foreach (var assignment in context.Assignments)
+            {
+                context.Assignments.Remove(assignment);
+            }
+            foreach (var exercise in context.Excercises)
+            {
+                context.Excercises.Remove(exercise);
+            }
+            foreach (var student in context.Students)
+            {
+                context.Students.Remove(student);
+            }
+            foreach (var course in context.Courses)
+            {
+                context.Courses.Remove(course);
+            }  
 
-        //  System.Console.WriteLine("Database seeded");
-        //}
+            context.SaveChanges();
+            Console.WriteLine("Data removed");
+        }
+
+        private static void SeedDatabase(MyDbContext context)
+        {
+
+            context.Students.Add(new Student { AuId = "au135848", Name = "Soeren Brostroem", });
+            context.Students.Add(new Student { AuId = "au135333", Name = "Hanne Lind", });
+            context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe", });
+            context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager", });
+            context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech", });
+
+            context.Courses.Add(new Course { CourseId = "I4DAB", Name = "Databaser", });
+            context.Courses.Add(new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling", });
+            context.Courses.Add(new Course { CourseId = "I4SWD", Name = "Software Design2345", });
+
+            context.Teachers.Add(new Teacher { TAuId = "au758313", Name = "Lars Larsen" });
+            context.Teachers.Add(new Teacher { TAuId = "au542341", Name = "Barack Obama" });
+            context.Teachers.Add(new Teacher { TAuId = "au542413", Name = "Joe Exotic" });
+            context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman" });
+            context.Teachers.Add(new Teacher { TAuId = "au1241245", Name = "Phoebe Buffay" });
+
+            context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", });
+            context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", });
+            context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", });
+
+            context.Excercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413", });
+            context.Excercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413", });
+            context.Excercises.Add(new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234", });
+            context.Excercises.Add(new Exercise { ExerciseNumber = 4, Lecture = "Umulig c++", HelpWhere = "opg 42.4", AuId = "au963454", CourseId = "I3ISU", TAuId = "au542341", });
+
+            context.SaveChanges();
+            Console.WriteLine("Data seeded");
+
+            ////delete and recreate database
+            //context.Database.EnsureDeleted();
+            //context.Database.EnsureCreated();
+
+            ////create students
+            //context.Students.Add(new Student { AuId = "au135848", Name = "Soeren Brostroem", });
+            //context.Students.Add(new Student { AuId = "au135333", Name = "Hanne Lind", });
+            //context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe", });
+            //context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager", });
+            //context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech", });
+            //context.SaveChanges();
+
+            ////create teachers
+            //context.Teachers.Add(new Teacher { TAuId = "au758313", Name = "Lars Larsen", });
+            //context.Teachers.Add(new Teacher { TAuId = "au542341", Name = "Barack Obama", });
+            //context.Teachers.Add(new Teacher { TAuId = "au542413", Name = "Joe Exotic", });
+            //context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman", });
+            //context.Teachers.Add(new Teacher { TAuId = "au1241245", Name = "Phoebe Buffay", });
+            //context.SaveChanges();
+
+            ////create courses
+            //context.Courses.Add(new Course { CourseId = "I4DAB", Name = "Databaser", });
+            //context.Courses.Add(new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling" });
+            //context.Courses.Add(new Course { CourseId = "I4SWD", Name = "Software Design", });
+            //context.SaveChanges();
+
+            ////create assignments
+            //context.Assignments.Add(new Assignment { AssignmentNumber = 1, CourseId = "I4DAB", TAuId = "au542413" });
+            //context.Assignments.Add(new Assignment { AssignmentNumber = 2, CourseId = "I4SWD", TAuId = "au531234" });
+            //context.Assignments.Add(new Assignment { AssignmentNumber = 3, CourseId = "I3ISU", TAuId = "au542341" });
+
+
+
+            ////create exercises
+            //context.Excercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413" });
+            //context.Excercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413" });
+            //context.Excercises.Add(new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234" });
+            //context.Excercises.Add(new Exercise { ExerciseNumber = 4, Lecture = "Umulig c++", HelpWhere = "opg 42.4", AuId = "au963454", CourseId = "I3ISU", TAuId = "au542341" });
+
+
+        }
+
+
+
+
+
+  
+
     }
 }

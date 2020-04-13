@@ -6,6 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Migrations\20200413144823_InitialMigration.cs" />
+    <Compile Remove="Migrations\20200413144823_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20200413145233_Migration2.cs" />
+    <Compile Remove="Migrations\20200413145233_Migration2.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="3.1.3" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.1.3">
       <PrivateAssets>all</PrivateAssets>
