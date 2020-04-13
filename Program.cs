@@ -158,8 +158,14 @@ namespace OnlineHelpSystem
 
     private static void CreateData(MyDbContext context)
     {
-      string id;
-      string name;
+            string id;
+            string name;
+            string courseid;
+            string tauid;
+            int exnumber;
+            string asnumber;
+            string helpwhere;
+            string lecture;
       System.Console.WriteLine("What would you like to do?");
       System.Console.WriteLine("1: Create new course");
       System.Console.WriteLine("2: Create new student");
@@ -196,28 +202,38 @@ namespace OnlineHelpSystem
           break;
         case '3': // create new teacher
           Console.WriteLine("Input teacher auID:");
-          id = Console.ReadLine();
+          tauid = Console.ReadLine();
           Console.WriteLine("Input teacher name:");
           name = Console.ReadLine();
           Teacher newTeacher = new Teacher()
           {
-            TAuId = id,
+            TAuId = tauid,
             Name = name
           };
           context.Add(newTeacher);
           break;
         case '4': //create new assignment help request
-          break;
-        case '5': //create new Exercise Help Request
-                    Student student;
-                    string lecture;
-                    string helpwhere;
-                    int number;
+                    Student student1;
+                    Teacher teacher1;
+                    Course course1;
+
+                    Console.WriteLine("Input Course id: ");
+                    courseid = Console.ReadLine();
+                    try
+                    {
+                        course1 = context.Courses.Where(s => s.CourseId == courseid).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Course does not exist");
+                        break;
+                    }
+
                     Console.WriteLine("Input Student AuId: ");
                     id = Console.ReadLine();
                     try
                     {
-                        student = context.Students.Where(s => s.AuId == id).Single();
+                        student1 = context.Students.Where(s => s.AuId == id).Single();
                     }
                     catch
                     {
@@ -225,8 +241,84 @@ namespace OnlineHelpSystem
                         break;
                     }
 
+                    Console.WriteLine("Input Teacher AuId: ");
+                    tauid = Console.ReadLine();
+                    try
+                    {
+                        teacher1 = context.Teachers.Where(s => s.TAuId == tauid).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Teacher does not exist");
+                        break;
+                    }
+
+                    Console.WriteLine("Input Assignment number: ");
+                    asnumber = (Console.ReadLine());
+
+
+                    Assignment assignment = new Assignment()
+                    {
+                        TAuId = tauid,
+                        CourseId = courseid,
+                        AssignmentNumber = asnumber
+
+                    };
+                    assignment.StudentAssignments = new List<StudentAssignment>()
+                    {
+                        new StudentAssignment
+                        {
+                            Assignment=assignment,
+                            Student=student1
+                        }
+                    };
+                    context.Add(assignment);
+                    context.SaveChanges();
+                    Console.WriteLine("Added Assignment Request!");
+                    break;
+        case '5': //create new Exercise Help Request
+                    Student student2;
+                    Teacher teacher2;
+                    Course course2;
+
+                    Console.WriteLine("Input Course id: ");
+                    courseid = Console.ReadLine();
+                    try
+                    {
+                        course2 = context.Courses.Where(s => s.CourseId == courseid).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Course does not exist");
+                        break;
+                    }
+
+                    Console.WriteLine("Input Student AuId: ");
+                    id = Console.ReadLine();
+                    try
+                    {
+                        student2 = context.Students.Where(s => s.AuId == id).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Student does not exist");
+                        break;
+                    }
+
+                    Console.WriteLine("Input Teacher AuId: ");
+                    tauid = Console.ReadLine();
+                    try
+                    {
+                        teacher2 = context.Teachers.Where(s => s.TAuId == tauid).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Teacher does not exist");
+                        break;
+                    }
+
                     Console.WriteLine("Input Exercise number: ");
-                    number = int.Parse(Console.ReadLine());
+                    exnumber = int.Parse(Console.ReadLine());
 
                     Console.WriteLine("Input Exercise Lecture: ");
                     lecture = Console.ReadLine();
@@ -234,20 +326,22 @@ namespace OnlineHelpSystem
                     Console.WriteLine("Input Exercise Help where: ");
                     helpwhere = Console.ReadLine();
 
-                  
-                        Exercise exercise = new Exercise
-                        {
-                            ExerciseNumber = number,
-                            Lecture = lecture,
-                            HelpWhere = helpwhere,
-                            AuId = id
-                        };
-                        context.Add(exercise);
-                        context.SaveChanges();
-                   
+                    Exercise exercise = new Exercise
+                    {
+                        ExerciseNumber = exnumber,
+                        Lecture = lecture,
+                        HelpWhere = helpwhere,
+                        AuId = id,
+                        TAuId = tauid,
+                        CourseId = courseid
+
+                    };
+                    context.Add(exercise);
+                    context.SaveChanges();
+                    Console.WriteLine("Added Exercise Request!");
+
                     break;
-   
-      }
+            }
     }
 
 
@@ -309,54 +403,6 @@ namespace OnlineHelpSystem
 
             context.SaveChanges();
             Console.WriteLine("Data seeded");
-
-            ////delete and recreate database
-            //context.Database.EnsureDeleted();
-            //context.Database.EnsureCreated();
-
-            ////create students
-            //context.Students.Add(new Student { AuId = "au135848", Name = "Soeren Brostroem", });
-            //context.Students.Add(new Student { AuId = "au135333", Name = "Hanne Lind", });
-            //context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe", });
-            //context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager", });
-            //context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech", });
-            //context.SaveChanges();
-
-            ////create teachers
-            //context.Teachers.Add(new Teacher { TAuId = "au758313", Name = "Lars Larsen", });
-            //context.Teachers.Add(new Teacher { TAuId = "au542341", Name = "Barack Obama", });
-            //context.Teachers.Add(new Teacher { TAuId = "au542413", Name = "Joe Exotic", });
-            //context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman", });
-            //context.Teachers.Add(new Teacher { TAuId = "au1241245", Name = "Phoebe Buffay", });
-            //context.SaveChanges();
-
-            ////create courses
-            //context.Courses.Add(new Course { CourseId = "I4DAB", Name = "Databaser", });
-            //context.Courses.Add(new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling" });
-            //context.Courses.Add(new Course { CourseId = "I4SWD", Name = "Software Design", });
-            //context.SaveChanges();
-
-            ////create assignments
-            //context.Assignments.Add(new Assignment { AssignmentNumber = 1, CourseId = "I4DAB", TAuId = "au542413" });
-            //context.Assignments.Add(new Assignment { AssignmentNumber = 2, CourseId = "I4SWD", TAuId = "au531234" });
-            //context.Assignments.Add(new Assignment { AssignmentNumber = 3, CourseId = "I3ISU", TAuId = "au542341" });
-
-
-
-            ////create exercises
-            //context.Excercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413" });
-            //context.Excercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413" });
-            //context.Excercises.Add(new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234" });
-            //context.Excercises.Add(new Exercise { ExerciseNumber = 4, Lecture = "Umulig c++", HelpWhere = "opg 42.4", AuId = "au963454", CourseId = "I3ISU", TAuId = "au542341" });
-
-
         }
-
-
-
-
-
-  
-
     }
 }
