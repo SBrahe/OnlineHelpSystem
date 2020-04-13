@@ -81,22 +81,13 @@ namespace OnlineHelpSystem
 
     private static void PrintAllOpenHelpRequests(MyDbContext context)
     {
-       
+  
 
-    }
+     }
 
     private static void PrintStatisticsForCourse(MyDbContext context)
     {
-      // string course;
-      // System.Console.WriteLine("Choose course");
-      // course = Console.ReadLine();
-      //
-      // course = context.Courses.Include(p => p.Name);
-      //   
-      // foreach (var course in context.Courses.Include(p => p.Name).ToList())
-      // {
-      //   System.Console.WriteLine(course);
-      // }
+     
     }
 
     private static void ListAllData(MyDbContext context)
@@ -155,8 +146,15 @@ namespace OnlineHelpSystem
 
     private static void CreateData(MyDbContext context)
     {
-      string id;
-      string name;
+            string id;
+            string name;
+            string courseid;
+            string tauid;
+            int exnumber;
+            string asnumber;
+            string helpwhere;
+            string lecture;
+            
       System.Console.WriteLine("What would you like to do?");
       System.Console.WriteLine("1: Create new course");
       System.Console.WriteLine("2: Create new student");
@@ -193,28 +191,38 @@ namespace OnlineHelpSystem
           break;
         case '3': // create new teacher
           Console.WriteLine("Input teacher auID:");
-          id = Console.ReadLine();
+          tauid = Console.ReadLine();
           Console.WriteLine("Input teacher name:");
           name = Console.ReadLine();
           Teacher newTeacher = new Teacher()
           {
-            TAuId = id,
+            TAuId = tauid,
             Name = name
           };
           context.Add(newTeacher);
           break;
         case '4': //create new assignment help request
-          break;
-        case '5': //create new Exercise Help Request
-                    Student student;
-                    string lecture;
-                    string helpwhere;
-                    int number;
+                    Student student1;
+                    Teacher teacher1;
+                    Course course1;
+
+                    Console.WriteLine("Input Course id: ");
+                    courseid = Console.ReadLine();
+                    try
+                    {
+                        course1 = context.Courses.Where(s => s.CourseId == courseid).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Course does not exist");
+                        break;
+                    }
+
                     Console.WriteLine("Input Student AuId: ");
                     id = Console.ReadLine();
                     try
                     {
-                        student = context.Students.Where(s => s.AuId == id).Single();
+                        student1 = context.Students.Where(s => s.AuId == id).Single();
                     }
                     catch
                     {
@@ -222,8 +230,84 @@ namespace OnlineHelpSystem
                         break;
                     }
 
+                    Console.WriteLine("Input Teacher AuId: ");
+                    tauid = Console.ReadLine();
+                    try
+                    {
+                        teacher1 = context.Teachers.Where(s => s.TAuId == tauid).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Teacher does not exist");
+                        break;
+                    }
+
+                    Console.WriteLine("Input Assignment number: ");
+                    asnumber = (Console.ReadLine());
+
+
+                    Assignment assignment = new Assignment()
+                    {
+                        TAuId = tauid,
+                        CourseId = courseid,
+                        AssignmentNumber = asnumber
+                        
+                    };
+                    assignment.StudentAssignments = new List<StudentAssignment>()
+                    {
+                        new StudentAssignment
+                        {
+                            Assignment=assignment,
+                            Student=student1
+                        }
+                    };
+                    context.Add(assignment);
+                    context.SaveChanges();
+                    Console.WriteLine("Added Assignment Request!");
+                    break;
+        case '5': //create new Exercise Help Request
+                    Student student2;
+                    Teacher teacher2;
+                    Course course2;
+                   
+                    Console.WriteLine("Input Course id: ");
+                    courseid = Console.ReadLine();
+                    try
+                    {
+                        course2 = context.Courses.Where(s => s.CourseId == courseid).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Course does not exist");
+                        break;
+                    }
+
+                    Console.WriteLine("Input Student AuId: ");
+                    id = Console.ReadLine();
+                    try
+                    {
+                        student2 = context.Students.Where(s => s.AuId == id).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Student does not exist");
+                        break;
+                    }
+
+                    Console.WriteLine("Input Teacher AuId: ");
+                    tauid = Console.ReadLine();
+                    try
+                    {
+                        teacher2 = context.Teachers.Where(s => s.TAuId == tauid).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Teacher does not exist");
+                        break;
+                    }
+
                     Console.WriteLine("Input Exercise number: ");
-                    number = int.Parse(Console.ReadLine());
+                    exnumber = int.Parse(Console.ReadLine());
 
                     Console.WriteLine("Input Exercise Lecture: ");
                     lecture = Console.ReadLine();
@@ -231,16 +315,21 @@ namespace OnlineHelpSystem
                     Console.WriteLine("Input Exercise Help where: ");
                     helpwhere = Console.ReadLine();
 
-                  
-                        Exercise exercise = new Exercise
-                        {
-                            ExerciseNumber = number,
-                            Lecture = lecture,
-                            HelpWhere = helpwhere,
-                            AuId = id
-                        };
+
+
+                    Exercise exercise = new Exercise
+                    {
+                        ExerciseNumber = exnumber,
+                        Lecture = lecture,
+                        HelpWhere = helpwhere,
+                        AuId = id,
+                        TAuId = tauid,
+                        CourseId=courseid
+                           
+                    };
                         context.Add(exercise);
                         context.SaveChanges();
+                    Console.WriteLine("Added Exercise Request!");
                    
                     break;
    
