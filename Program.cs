@@ -129,19 +129,22 @@ namespace OnlineHelpSystem
                 }
             }
 
+            //var Assignments = context.Assignments.Include(a => a.StudentAssignments);
+
             //Console.WriteLine("Assigments: ");
-            //foreach (var assignment in context.Assignments)
+            //foreach (var assignment in Assignments)
             //{
-            //    if ()
+            //    foreach()
+            //    if (assignment==auid)
             //    {
-            //        Console.WriteLine("----------Assignment Help Request----------");     //Kan ikke få listet assigments request ud fra Student. 
-            //       Console.WriteLine($"auid: {}")
+            //        Console.WriteLine("----------Assignment Help Request----------");     
+            //        Console.WriteLine($"auid: ")
             //        Console.WriteLine("-----------------------------------------");
             //    }
 
 
             //}
-    }
+        }
 
         private static void PrintStatisticsForCourse(MyDbContext context)
     {
