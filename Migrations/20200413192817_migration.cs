@@ -2,7 +2,7 @@
 
 namespace OnlineHelpSystem.Migrations
 {
-    public partial class InitialMigration : Migration
+    public partial class migration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -80,7 +80,8 @@ namespace OnlineHelpSystem.Migrations
                 columns: table => new
                 {
                     AssignmentNumber = table.Column<string>(nullable: false),
-                    Open = table.Column<bool>(nullable: false),
+                    Open = table.Column<bool>(nullable: false, defaultValue: false),
+                    HelpWhere = table.Column<string>(nullable: true),
                     CourseId = table.Column<string>(nullable: true),
                     TAuId = table.Column<string>(nullable: true)
                 },
@@ -102,34 +103,34 @@ namespace OnlineHelpSystem.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Excercises",
+                name: "Exercises",
                 columns: table => new
                 {
                     ExerciseNumber = table.Column<int>(nullable: false),
                     Lecture = table.Column<string>(nullable: false),
                     HelpWhere = table.Column<string>(nullable: true),
-                    Open = table.Column<bool>(nullable: false),
+                    Open = table.Column<bool>(nullable: false, defaultValue: false),
                     AuId = table.Column<string>(nullable: true),
                     CourseId = table.Column<string>(nullable: true),
                     TAuId = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Excercises", x => new { x.Lecture, x.ExerciseNumber });
+                    table.PrimaryKey("PK_Exercises", x => new { x.Lecture, x.ExerciseNumber });
                     table.ForeignKey(
-                        name: "FK_Excercises_Students_AuId",
+                        name: "FK_Exercises_Students_AuId",
                         column: x => x.AuId,
                         principalTable: "Students",
                         principalColumn: "AuId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Excercises_Courses_CourseId",
+                        name: "FK_Exercises_Courses_CourseId",
                         column: x => x.CourseId,
                         principalTable: "Courses",
                         principalColumn: "CourseId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Excercises_Teachers_TAuId",
+                        name: "FK_Exercises_Teachers_TAuId",
                         column: x => x.TAuId,
                         principalTable: "Teachers",
                         principalColumn: "TAuId",
@@ -171,18 +172,18 @@ namespace OnlineHelpSystem.Migrations
                 column: "TAuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Excercises_AuId",
-                table: "Excercises",
+                name: "IX_Exercises_AuId",
+                table: "Exercises",
                 column: "AuId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Excercises_CourseId",
-                table: "Excercises",
+                name: "IX_Exercises_CourseId",
+                table: "Exercises",
                 column: "CourseId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Excercises_TAuId",
-                table: "Excercises",
+                name: "IX_Exercises_TAuId",
+                table: "Exercises",
                 column: "TAuId");
 
             migrationBuilder.CreateIndex(
@@ -204,7 +205,7 @@ namespace OnlineHelpSystem.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Excercises");
+                name: "Exercises");
 
             migrationBuilder.DropTable(
                 name: "StudentAssignment");

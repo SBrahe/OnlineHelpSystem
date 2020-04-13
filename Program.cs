@@ -154,16 +154,16 @@ namespace OnlineHelpSystem
             }
         }
         
-        foreach (var assignment in context.Assignments)
-        {
-            if (assignment.CourseId == courseId)
-            {
-                Console.WriteLine("----------Assignment Help Request----------");
-                Console.WriteLine($"Assignment Number: {assignment.AssignmentNumber},  Help where?: " +
-                                  $"{Assignment.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
-                Console.WriteLine("-----------------------------------------");
-            }
-        }
+        // foreach (var assignment in context.Assignments)
+        // {
+        //     if (assignment.CourseId == courseId)
+        //     {
+        //         Console.WriteLine("----------Assignment Help Request----------");
+        //         Console.WriteLine($"Assignment Number: {assignment.AssignmentNumber},  Help where?: " +
+        //                           $"{Assignment.HelpWhere}, Student Auid: {Assignment.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
+        //         Console.WriteLine("-----------------------------------------");
+        //     }
+        // }
         
     }
         
