@@ -60,8 +60,7 @@ namespace OnlineHelpSystem
           break;
       }
     }
-
-        #endregion
+    #endregion
 
         #region Print specifics
         private static void PrintOpenHelpRequestsForTeacherCourse(MyDbContext context)
@@ -95,9 +94,7 @@ namespace OnlineHelpSystem
                     Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
                 }
             }
-
-
-        }
+    }
 
     private static void PrintAllOpenHelpRequests(MyDbContext context)
     {
@@ -132,8 +129,44 @@ namespace OnlineHelpSystem
 
         private static void PrintStatisticsForCourse(MyDbContext context)
     {
+        string courseId;
+        Course course;
 
+        Console.WriteLine("Choose Course id: " + Environment.NewLine);
+        courseId = Console.ReadLine();
+        try
+        {
+            course = context.Courses.Where(s => s.CourseId == courseId).Single();
+        }
+        catch
+        {
+            Console.WriteLine("Course does not exist");
+        }
+        
+        foreach (var exercise in context.Exercises)
+        {
+            if (exercise.CourseId == courseId)
+            {
+                Console.WriteLine("----------Exercise Help Request----------");
+                Console.WriteLine($"Exercise Number: {exercise.ExerciseNumber}, Lecture: {exercise.Lecture}, Help where?: " +
+                                  $"{exercise.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
+                Console.WriteLine("-----------------------------------------");
+            }
+        }
+        
+        foreach (var assignment in context.Assignments)
+        {
+            if (assignment.CourseId == courseId)
+            {
+                Console.WriteLine("----------Assignment Help Request----------");
+                Console.WriteLine($"Assignment Number: {assignment.AssignmentNumber},  Help where?: " +
+                                  $"{Assignment.HelpWhere}, Student Auid: {exercise.AuId}, CourseId: {exercise.CourseId}, Teacher AuId: {exercise.TAuId}");
+                Console.WriteLine("-----------------------------------------");
+            }
+        }
+        
     }
+        
 
         #endregion
 
