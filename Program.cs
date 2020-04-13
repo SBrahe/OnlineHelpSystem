@@ -81,7 +81,7 @@ namespace OnlineHelpSystem
                 if (exercise.TAuId == teacher && exercise.CourseId == course)
                 {                  
                     Console.WriteLine(exercise.HelpWhere);
-                    exercise.Open = true;
+                    exercise.Open = true;                    
                 }               
             }
 
@@ -93,9 +93,10 @@ namespace OnlineHelpSystem
                 if (assignment.TAuId == teacher && assignment.CourseId == course)
                 {
                     Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
-                    assignment.Open = true;
+                    assignment.Open = true;                    
                 }
             }
+            context.SaveChanges(); //To open help-request
 
             //var Assignments = context.Assignments.Include(a => a.StudentAssignments);
 
