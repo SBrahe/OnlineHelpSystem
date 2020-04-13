@@ -81,6 +81,7 @@ namespace OnlineHelpSystem
                 if (exercise.TAuId == teacher && exercise.CourseId == course)
                 {                  
                     Console.WriteLine(exercise.HelpWhere);
+                    exercise.Open = true;
                 }               
             }
 
@@ -92,11 +93,25 @@ namespace OnlineHelpSystem
                 if (assignment.TAuId == teacher && assignment.CourseId == course)
                 {
                     Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
+                    assignment.Open = true;
                 }
             }
-    }
 
-    private static void PrintAllOpenHelpRequests(MyDbContext context)
+            //var Assignments = context.Assignments.Include(a => a.StudentAssignments);
+
+            //Console.WriteLine("Assigments: ");
+            //foreach (var assignment in Assignments)
+            //{
+            //    foreach()
+            //    if (assignment==auid)
+            //    {
+            //        Console.WriteLine("----------Assignment Help Request----------");     
+            //        Console.WriteLine($"auid: ")
+            //        Console.WriteLine("-----------------------------------------");
+            //    }
+        }
+
+        private static void PrintAllOpenHelpRequests(MyDbContext context)
     {
             //I kan teste med auid : au135848
             string auid;
@@ -110,8 +125,7 @@ namespace OnlineHelpSystem
             }
             catch
             {
-                Console.WriteLine("Student does not exist");
-                
+                Console.WriteLine("Student does not exist");                
             }
 
             Console.WriteLine("Exercises: ");
