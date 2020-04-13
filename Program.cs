@@ -136,7 +136,7 @@ namespace OnlineHelpSystem
       
       foreach (var exercise in exerciseList)
       {
-        System.Console.WriteLine(exercise.Number);
+        System.Console.WriteLine(exercise.ExerciseNumber);
       }
       System.Console.WriteLine("");
 
@@ -244,6 +244,7 @@ namespace OnlineHelpSystem
       
       //create assignments
       
+
       //create exercises
       
       System.Console.WriteLine("Database seeded");
