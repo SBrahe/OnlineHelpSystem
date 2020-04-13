@@ -22,7 +22,7 @@ namespace OnlineHelpSystem
       if (consoleKeyInfo.KeyChar == 'y')
       {
         System.Console.WriteLine("\n");
-        SeedDatabase(context);
+        //SeedDatabase(context);
       }
       else
       {
@@ -72,14 +72,16 @@ namespace OnlineHelpSystem
     {
       string teacher;
       string course;
-      System.Console.WriteLine("Choose teacher");
+      System.Console.WriteLine("Choose teacher AuId: ");
       teacher = Console.ReadLine();
-      System.Console.WriteLine("Choose course");
+      System.Console.WriteLine("Choose Course id: ");
       course = Console.ReadLine();
+
     }
 
     private static void PrintAllOpenHelpRequests(MyDbContext context)
     {
+       
 
     }
 
@@ -159,10 +161,8 @@ namespace OnlineHelpSystem
       System.Console.WriteLine("1: Create new course");
       System.Console.WriteLine("2: Create new student");
       System.Console.WriteLine("3: Create new teacher");
-      System.Console.WriteLine("4: Create new assignment");
-      System.Console.WriteLine("5: Create new exercise");
-      System.Console.WriteLine("6: Create new review");
-      System.Console.WriteLine("7: Create new help request");
+      System.Console.WriteLine("4: Create new assignment help request");
+      System.Console.WriteLine("5: Create new exercise help request");
       ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
       switch (consoleKeyInfo.KeyChar)
       {
@@ -192,9 +192,9 @@ namespace OnlineHelpSystem
           context.Add(newStudent);
           break;
         case '3': // create new teacher
-          System.Console.WriteLine("Input teacher auID:");
+          Console.WriteLine("Input teacher auID:");
           id = Console.ReadLine();
-          System.Console.WriteLine("Input teacher name:");
+          Console.WriteLine("Input teacher name:");
           name = Console.ReadLine();
           Teacher newTeacher = new Teacher()
           {
@@ -203,51 +203,84 @@ namespace OnlineHelpSystem
           };
           context.Add(newTeacher);
           break;
-        case '4': //create new assignment
+        case '4': //create new assignment help request
           break;
-        case '5': //create new exercise
-          break;
-        case '6': //create new review
-          break;
-        case '7': // create new help request
-          break;
+        case '5': //create new Exercise Help Request
+                    Student student;
+                    string lecture;
+                    string helpwhere;
+                    int number;
+                    Console.WriteLine("Input Student AuId: ");
+                    id = Console.ReadLine();
+                    try
+                    {
+                        student = context.Students.Where(s => s.AuId == id).Single();
+                    }
+                    catch
+                    {
+                        Console.WriteLine("Student does not exist");
+                        break;
+                    }
+
+                    Console.WriteLine("Input Exercise number: ");
+                    number = int.Parse(Console.ReadLine());
+
+                    Console.WriteLine("Input Exercise Lecture: ");
+                    lecture = Console.ReadLine();
+
+                    Console.WriteLine("Input Exercise Help where: ");
+                    helpwhere = Console.ReadLine();
+
+                  
+                        Exercise exercise = new Exercise
+                        {
+                            ExerciseNumber = number,
+                            Lecture = lecture,
+                            HelpWhere = helpwhere,
+                            AuId = id
+                        };
+                        context.Add(exercise);
+                        context.SaveChanges();
+                   
+                    break;
+   
       }
     }
 
-    private static void SeedDatabase(MyDbContext context)
-    {
-      //delete and recreate database
-      context.Database.EnsureDeleted();
-      context.Database.EnsureCreated();
-      
-      //create students
-      context.Students.Add(new Student { AuId = "au135848", Name = "Soeren Brostroem",});
-      context.Students.Add(new Student { AuId = "au135333", Name = "Hanne Lind",});
-      context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe",});
-      context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager",});
-      context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech",});
-      context.SaveChanges();
-      
-      //create teachers
-      context.Teachers.Add(new Teacher { TAuId = "au758313", Name = "Lars Larsen",});
-      context.Teachers.Add(new Teacher { TAuId = "au542341", Name = "Barack Obama",});
-      context.Teachers.Add(new Teacher { TAuId = "au542413", Name = "Joe Exotic",});
-      context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman",});
-      context.Teachers.Add(new Teacher {TAuId = "au1241245", Name = "Phoebe Buffay",});
-      context.SaveChanges();
-      
-      //create courses
-      context.Courses.Add(new Course { CourseId = "I4DAB", Name = "Databaser",});
-      context.Courses.Add(new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling"});
-      context.Courses.Add(new Course { CourseId = "I4SWD", Name = "Software Design",});
-      context.SaveChanges();
-      
-      //create assignments
-      
+        //private static void SeedDatabase(MyDbContext context)
+        //{
+        //  //delete and recreate database
+        //  context.Database.EnsureDeleted();
+        //  context.Database.EnsureCreated();
 
-      //create exercises
-      
-      System.Console.WriteLine("Database seeded");
+        //  //create students
+        //  context.Students.Add(new Student { AuId = "au135848", Name = "Soeren Brostroem",});
+        //  context.Students.Add(new Student { AuId = "au135333", Name = "Hanne Lind",});
+        //  context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe",});
+        //  context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager",});
+        //  context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech",});
+        //  context.SaveChanges();
+
+        //  //create teachers
+        //  context.Teachers.Add(new Teacher { TAuId = "au758313", Name = "Lars Larsen",});
+        //  context.Teachers.Add(new Teacher { TAuId = "au542341", Name = "Barack Obama",});
+        //  context.Teachers.Add(new Teacher { TAuId = "au542413", Name = "Joe Exotic",});
+        //  context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman",});
+        //  context.Teachers.Add(new Teacher {TAuId = "au1241245", Name = "Phoebe Buffay",});
+        //  context.SaveChanges();
+
+        //  //create courses
+        //  context.Courses.Add(new Course { CourseId = "I4DAB", Name = "Databaser",});
+        //  context.Courses.Add(new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling"});
+        //  context.Courses.Add(new Course { CourseId = "I4SWD", Name = "Software Design",});
+        //  context.SaveChanges();
+
+        //  //create assignments
+
+
+        //  //create exercises
+
+        //  System.Console.WriteLine("Database seeded");
+        //}
     }
-  }
 }

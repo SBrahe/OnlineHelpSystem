@@ -9,8 +9,8 @@ using OnlineHelpSystem.Data;
 namespace OnlineHelpSystem.Migrations
 {
     [DbContext(typeof(MyDbContext))]
-    [Migration("20200412104108_Snapshot1")]
-    partial class Snapshot1
+    [Migration("20200413122757_Initial")]
+    partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -30,9 +30,6 @@ namespace OnlineHelpSystem.Migrations
                     b.Property<string>("CourseId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<string>("HelpWhere")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<string>("TAuId")
                         .HasColumnType("nvarchar(450)");
 
@@ -43,6 +40,26 @@ namespace OnlineHelpSystem.Migrations
                     b.HasIndex("TAuId");
 
                     b.ToTable("Assignments");
+
+                    b.HasData(
+                        new
+                        {
+                            AssignmentNumber = 1,
+                            CourseId = "I4DAB",
+                            TAuId = "au542413"
+                        },
+                        new
+                        {
+                            AssignmentNumber = 2,
+                            CourseId = "I4SWD",
+                            TAuId = "au531234"
+                        },
+                        new
+                        {
+                            AssignmentNumber = 3,
+                            CourseId = "I3ISU",
+                            TAuId = "au542341"
+                        });
                 });
 
             modelBuilder.Entity("OnlineHelpSystem.Models.Course", b =>
@@ -56,6 +73,23 @@ namespace OnlineHelpSystem.Migrations
                     b.HasKey("CourseId");
 
                     b.ToTable("Courses");
+
+                    b.HasData(
+                        new
+                        {
+                            CourseId = "I4DAB",
+                            Name = "Databaser"
+                        },
+                        new
+                        {
+                            CourseId = "I3ISU",
+                            Name = "Indlejret Softwareudvikling"
+                        },
+                        new
+                        {
+                            CourseId = "I4SWD",
+                            Name = "Software Design2345"
+                        });
                 });
 
             modelBuilder.Entity("OnlineHelpSystem.Models.Exercise", b =>
@@ -63,7 +97,7 @@ namespace OnlineHelpSystem.Migrations
                     b.Property<string>("Lecture")
                         .HasColumnType("nvarchar(450)");
 
-                    b.Property<int>("Number")
+                    b.Property<int>("ExerciseNumber")
                         .HasColumnType("int");
 
                     b.Property<string>("AuId")
@@ -78,7 +112,7 @@ namespace OnlineHelpSystem.Migrations
                     b.Property<string>("TAuId")
                         .HasColumnType("nvarchar(450)");
 
-                    b.HasKey("Lecture", "Number");
+                    b.HasKey("Lecture", "ExerciseNumber");
 
                     b.HasIndex("AuId");
 
@@ -87,6 +121,44 @@ namespace OnlineHelpSystem.Migrations
                     b.HasIndex("TAuId");
 
                     b.ToTable("Excercises");
+
+                    b.HasData(
+                        new
+                        {
+                            Lecture = "EF Core",
+                            ExerciseNumber = 1,
+                            AuId = "au135848",
+                            CourseId = "I4DAB",
+                            HelpWhere = "opg 2.4",
+                            TAuId = "au542413"
+                        },
+                        new
+                        {
+                            Lecture = "Migrations",
+                            ExerciseNumber = 2,
+                            AuId = "au136427",
+                            CourseId = "I4DAB",
+                            HelpWhere = "opg 1",
+                            TAuId = "au542413"
+                        },
+                        new
+                        {
+                            Lecture = "Oberserver Pattern",
+                            ExerciseNumber = 3,
+                            AuId = "au145532",
+                            CourseId = "I4SWD",
+                            HelpWhere = "opg 3.7",
+                            TAuId = "au531234"
+                        },
+                        new
+                        {
+                            Lecture = "Umulig c++",
+                            ExerciseNumber = 4,
+                            AuId = "au963454",
+                            CourseId = "I3ISU",
+                            HelpWhere = "opg 42.4",
+                            TAuId = "au542341"
+                        });
                 });
 
             modelBuilder.Entity("OnlineHelpSystem.Models.Student", b =>
@@ -100,6 +172,33 @@ namespace OnlineHelpSystem.Migrations
                     b.HasKey("AuId");
 
                     b.ToTable("Students");
+
+                    b.HasData(
+                        new
+                        {
+                            AuId = "au135848",
+                            Name = "Soeren Brostroem"
+                        },
+                        new
+                        {
+                            AuId = "au135333",
+                            Name = "Hanne Lind"
+                        },
+                        new
+                        {
+                            AuId = "au145532",
+                            Name = "Soeren Brahe"
+                        },
+                        new
+                        {
+                            AuId = "au136427",
+                            Name = "Flemming Dalager"
+                        },
+                        new
+                        {
+                            AuId = "au963454",
+                            Name = "Mogens Bech"
+                        });
                 });
 
             modelBuilder.Entity("OnlineHelpSystem.Models.StudentAssignment", b =>
@@ -154,6 +253,33 @@ namespace OnlineHelpSystem.Migrations
                     b.HasIndex("CourseId");
 
                     b.ToTable("Teachers");
+
+                    b.HasData(
+                        new
+                        {
+                            TAuId = "au758313",
+                            Name = "Lars Larsen"
+                        },
+                        new
+                        {
+                            TAuId = "au542341",
+                            Name = "Barack Obama"
+                        },
+                        new
+                        {
+                            TAuId = "au542413",
+                            Name = "Joe Exotic"
+                        },
+                        new
+                        {
+                            TAuId = "au531234",
+                            Name = "Saul Goodman"
+                        },
+                        new
+                        {
+                            TAuId = "au1241245",
+                            Name = "Phoebe Buffay"
+                        });
                 });
 
             modelBuilder.Entity("OnlineHelpSystem.Models.Assignment", b =>
@@ -163,7 +289,7 @@ namespace OnlineHelpSystem.Migrations
                         .HasForeignKey("CourseId");
 
                     b.HasOne("OnlineHelpSystem.Models.Teacher", "Teacher")
-                        .WithMany("Assignements")
+                        .WithMany("Assignments")
                         .HasForeignKey("TAuId");
                 });
 
