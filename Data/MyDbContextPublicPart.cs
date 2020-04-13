@@ -25,9 +25,6 @@ namespace OnlineHelpSystem.Data
                 .WithOne(s => s.Student)
                 .HasForeignKey(s => s.AuId);
 
-            modelbuilder.Entity<Student>()
-              .Property(s => s.Name);
-
             //Courses
             modelbuilder.Entity<Course>()   
                 .HasKey(c => c.CourseId);
@@ -47,14 +44,10 @@ namespace OnlineHelpSystem.Data
                .WithOne(c => c.Course)
                .HasForeignKey(c => c.CourseId);
 
-            modelbuilder.Entity<Course>()
-                .Property(c => c.Name);
-         
             //Assignments
             modelbuilder.Entity<Assignment>(entity =>
             {
                 entity.HasKey(l => l.AssignmentNumber);
-                entity.Property(l => l.HelpWhere);
             });
             //Exercises
             modelbuilder.Entity<Exercise>(entity =>
@@ -112,13 +105,6 @@ namespace OnlineHelpSystem.Data
                 .HasOne(sc => sc.Course)
                 .WithMany(sc => sc.StudentCourses)
                 .HasForeignKey(sc => sc.CourseId);
-
-
-            modelbuilder.Entity<StudentCourse>(entity =>
-            {
-                entity.Property(sc => sc.IsActive);
-                entity.Property(sc => sc.Semester);
-            });
 
         }
     }
