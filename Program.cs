@@ -449,6 +449,7 @@ namespace OnlineHelpSystem
             context.Students.Add(new Student { AuId = "au145532", Name = "Soeren Brahe", });
             context.Students.Add(new Student { AuId = "au136427", Name = "Flemming Dalager", });
             context.Students.Add(new Student { AuId = "au963454", Name = "Mogens Bech", });
+            context.Students.Add(new Student { AuId = "au135847", Name = "Hugh Mungus", });
 
             context.Courses.Add(new Course { CourseId = "I4DAB", Name = "Databaser", });
             context.Courses.Add(new Course { CourseId = "I3ISU", Name = "Indlejret Softwareudvikling", });

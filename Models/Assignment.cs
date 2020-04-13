@@ -7,9 +7,9 @@ namespace OnlineHelpSystem.Models
     class Assignment
     {
         public string AssignmentNumber { get; set; }
+        public bool Open { get; set; }
 
-        public List<StudentAssignment> StudentAssignments { get; set; }
-        //public List<Student> Students { get; set; }
+        public List<StudentAssignment> StudentAssignments { get; set; }        
 
         public string CourseId { get; set; }
         public Course Course { get; set; }
