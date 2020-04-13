@@ -85,7 +85,7 @@ namespace OnlineHelpSystem.Migrations
 
                     b.HasIndex("TAuId");
 
-                    b.ToTable("Excercises");
+                    b.ToTable("Exercises");
                 });
 
             modelBuilder.Entity("OnlineHelpSystem.Models.Student", b =>
