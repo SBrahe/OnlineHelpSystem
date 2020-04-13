@@ -53,7 +53,7 @@ namespace OnlineHelpSystem.Data
             modelbuilder.Entity<Exercise>(entity =>
             {
                 entity.HasKey(e => new { e.Lecture, e.ExerciseNumber });
-                entity.Property(e => e.HelpWhere);
+ 
             });
 
             //Teachers
@@ -70,9 +70,7 @@ namespace OnlineHelpSystem.Data
              .WithOne(c => c.Teacher)
              .HasForeignKey(c => c.TAuId);
 
-            modelbuilder.Entity<Teacher>()
-                .Property(t => t.Name);
-            
+       
 
             //StudentAssignment
             modelbuilder.Entity<StudentAssignment>()
