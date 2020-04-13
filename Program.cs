@@ -28,7 +28,7 @@ namespace OnlineHelpSystem
                 System.Console.WriteLine("");
             }
 
-            #region Action prompts
+        #region Action prompts
 
             //CHOOSE ACTION PROMPT
             CHOOSE_ACTION_PROMPT:
@@ -221,7 +221,7 @@ namespace OnlineHelpSystem
         }
         #endregion
 
-    #region List all data
+        #region List all data
     private static void ListAllData(MyDbContext context)
     {
     System.Console.WriteLine("LISTING ALL DATA");
@@ -284,7 +284,7 @@ namespace OnlineHelpSystem
 
     #endregion
 
-#region Create Data
+        #region Create Data
         private static void CreateData(MyDbContext context)
     {
             string id;
