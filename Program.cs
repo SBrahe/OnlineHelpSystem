@@ -19,23 +19,7 @@ namespace OnlineHelpSystem
                 RemoveData(context);
                 SeedDatabase(context);
 
-           
-
-
-
-
-            //SEED DATABASE PROMPT
-            System.Console.WriteLine("y/n: Seed database?");
-      ConsoleKeyInfo consoleKeyInfo = Console.ReadKey();
-      if (consoleKeyInfo.KeyChar == 'y')
-      {
-        System.Console.WriteLine("\n");
-        //SeedDatabase(context);
-      }
-      else
-      {
-        System.Console.WriteLine("\n");
-      }
+      
       
       //CHOOSE ACTION PROMPT
       CHOOSE_ACTION_PROMPT:
@@ -46,7 +30,7 @@ namespace OnlineHelpSystem
       System.Console.WriteLine("4: List all data");
       System.Console.WriteLine("5: Create data");
       System.Console.WriteLine("6: Exit");
-
+      ConsoleKeyInfo consoleKeyInfo;
       consoleKeyInfo = Console.ReadKey();
       switch (consoleKeyInfo.KeyChar)
       {
