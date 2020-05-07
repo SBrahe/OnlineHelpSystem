@@ -30,42 +30,43 @@ namespace OnlineHelpSystem
 
             #region Action prompts
 
-            //CHOOSE ACTION PROMPT
-            CHOOSE_ACTION_PROMPT:
-            System.Console.WriteLine("What would you like to do?");
-            System.Console.WriteLine("1: Print open help requests for (teacher, course)");
-            System.Console.WriteLine("2: Print all open help requests");
-            System.Console.WriteLine("3: Print statistics for help requests for (course)");
-            System.Console.WriteLine("4: List all data");
-            System.Console.WriteLine("5: Create data");
-            System.Console.WriteLine("6: Exit");
-            consoleKeyInfo = Console.ReadKey();
-            switch (consoleKeyInfo.KeyChar)
+            while (true)
             {
-                case '1':
-                    Console.WriteLine("");
-                    PrintOpenHelpRequestsForTeacherCourse(context);
-                    goto CHOOSE_ACTION_PROMPT;
-                case '2':
-                    System.Console.WriteLine("");
-                    PrintAllOpenHelpRequests(context);
-                    goto CHOOSE_ACTION_PROMPT;
-                case '3':
-                    System.Console.WriteLine("");
-                    PrintStatisticsForCourse(context);
-                    goto CHOOSE_ACTION_PROMPT;
-                case '4':
-                    System.Console.WriteLine("");
-                    ListAllData(context);
-                    goto CHOOSE_ACTION_PROMPT;
-                case '5':
-                    System.Console.WriteLine("");
-                    CreateData(context);
-                    goto CHOOSE_ACTION_PROMPT;
-                case '6':
-                    break;
-                default:
-                    break;
+                System.Console.WriteLine("What would you like to do?");
+                System.Console.WriteLine("1: Print open help requests for (teacher, course)");
+                System.Console.WriteLine("2: Print all open help requests");
+                System.Console.WriteLine("3: Print statistics for help requests for (course)");
+                System.Console.WriteLine("4: List all data");
+                System.Console.WriteLine("5: Create data");
+                System.Console.WriteLine("6: Exit");
+                consoleKeyInfo = Console.ReadKey();
+                switch (consoleKeyInfo.KeyChar)
+                {
+                    case '1':
+                        Console.WriteLine("");
+                        PrintOpenHelpRequestsForTeacherCourse(context);
+                        break;
+                    case '2':
+                        System.Console.WriteLine("");
+                        PrintAllOpenHelpRequests(context);
+                        break;
+                    case '3':
+                        System.Console.WriteLine("");
+                        PrintStatisticsForCourse(context);
+                        break;
+                    case '4':
+                        System.Console.WriteLine("");
+                        ListAllData(context);
+                        break;
+                    case '5':
+                        System.Console.WriteLine("");
+                        CreateData(context);
+                        break;
+                    case '6':
+                        break;
+                    default:
+                        break;
+                }
             }
         }
 
