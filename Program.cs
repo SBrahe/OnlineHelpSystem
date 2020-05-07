@@ -95,6 +95,7 @@ namespace OnlineHelpSystem
                 }               
             }
 
+
             Console.WriteLine("");
 
             Console.WriteLine("Assignment help Request(s): ");
@@ -102,7 +103,14 @@ namespace OnlineHelpSystem
             {
                 if (assignment.TAuId == teacher && assignment.CourseId == course)
                 {
-                    Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
+                    Console.WriteLine("Assignment number: " + assignment.AssignmentNumber + ", Course: " + assignment.CourseId + ", HelpWere: " + assignment.HelpWhere); //<- Placerholder. Der mangler en helpwhere
+                    Console.WriteLine("Students who needs help: ");
+                                        
+                    foreach (var sa in assignment.StudentAssignments)
+                    {
+                        Console.WriteLine(sa.AuId);
+                    }
+
                     assignment.Open = false;                    
                 }
             }
@@ -531,10 +539,14 @@ namespace OnlineHelpSystem
             context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman" });
             context.Teachers.Add(new Teacher { TAuId = "au1241245", Name = "Phoebe Buffay" });
 
+            context.StudentAssigments.Add(new StudentAssignment { AssignmentNumber = "1", AuId = "au135848" });
+
             context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", Open = false});
             context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", Open = true});
             context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", Open = false});
-            
+                    
+     
+
             context.Exercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413", Open = false});            
             context.Exercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413", Open = true});
             context.Exercises.Add(new Exercise { ExerciseNumber = 3, Lecture = "Oberserver Pattern", HelpWhere = "opg 3.7", AuId = "au145532", CourseId = "I4SWD", TAuId = "au531234", Open = false});
