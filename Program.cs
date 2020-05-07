@@ -121,7 +121,7 @@ namespace OnlineHelpSystem
             auid = Console.ReadLine();
             try
             {
-                student = context.Students.Where(s => s.AuId == auid).Single();
+                student = context.Students.Single(s => s.AuId == auid);
             }
             catch
             {
