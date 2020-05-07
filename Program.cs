@@ -85,12 +85,14 @@ namespace OnlineHelpSystem
 
             Console.WriteLine("Choose Course id: " + Environment.NewLine);
             course = Console.ReadLine();
-            Console.WriteLine("Exercise help Request(s): ");
+            Console.WriteLine("___Open exercise help Request(s)___");
             foreach (var exercise in context.Exercises)
             {
-                if (exercise.TAuId == teacher && exercise.CourseId == course)
+                if (exercise.TAuId == teacher && exercise.CourseId == course && exercise.Open == true)
                 {
-                    Console.WriteLine(exercise.HelpWhere);
+                    Console.WriteLine("Exercise ID: " + exercise.ExerciseNumber + ", Course: " + exercise.Course.Name + ", HelpeWere: " + exercise.HelpWhere);
+                    Console.WriteLine("   * Student who needs help: ");
+                    Console.WriteLine("      - " + "Au id: " + exercise.Student.AuId + ", Name" + exercise.Student.AuId);
                     exercise.Open = false;                    
                 }               
             }
@@ -98,17 +100,16 @@ namespace OnlineHelpSystem
 
             Console.WriteLine("");
 
-            Console.WriteLine("Assignment help Request(s): ");
+            Console.WriteLine("___Open assignment help Request(s)___");
             foreach (var assignment in context.Assignments)
             {
-                if (assignment.TAuId == teacher && assignment.CourseId == course)
+                if (assignment.TAuId == teacher && assignment.CourseId == course && assignment.Open == true)
                 {
-                    Console.WriteLine("Assignment number: " + assignment.AssignmentNumber + ", Course: " + assignment.CourseId + ", HelpWere: " + assignment.HelpWhere); //<- Placerholder. Der mangler en helpwhere
-                    Console.WriteLine("Students who needs help: ");
-                                        
+                    Console.WriteLine("Assignment ID: " + assignment.AssignmentNumber + ", Course: " + assignment.Course.Name + ", HelpWere: " + assignment.HelpWhere);                    
+                    Console.WriteLine("   * Student(s) who needs help: ");                                        
                     foreach (var sa in assignment.StudentAssignments)
                     {
-                        Console.WriteLine(sa.AuId);
+                        Console.WriteLine("      - Au id: " + sa.AuId + ", Navn: " + sa.Student.Name);                        
                     }
 
                     assignment.Open = false;                    
@@ -539,13 +540,16 @@ namespace OnlineHelpSystem
             context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman" });
             context.Teachers.Add(new Teacher { TAuId = "au1241245", Name = "Phoebe Buffay" });
 
-            context.StudentAssigments.Add(new StudentAssignment { AssignmentNumber = "1", AuId = "au135848" });
+            context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", Open = false, HelpWhere="Opgave 3"});            
+            context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", Open = true, HelpWhere = "Opgave 5" });
+            context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", Open = false, HelpWhere = "Opgave 4" });
+            context.Assignments.Add(new Assignment { AssignmentNumber = "4", CourseId = "I4DAB", TAuId = "au542413", Open = false, HelpWhere = "Opgave 7" });
 
-            context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", Open = false});
-            context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", Open = true});
-            context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", Open = false});
-                    
-     
+            context.StudentAssigments.Add(new StudentAssignment { AssignmentNumber = "1", AuId = "au135848" });
+            context.StudentAssigments.Add(new StudentAssignment { AssignmentNumber = "1", AuId = "au135333" });
+            context.StudentAssigments.Add(new StudentAssignment { AssignmentNumber = "4", AuId = "au963454" });
+
+
 
             context.Exercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413", Open = false});            
             context.Exercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413", Open = true});
