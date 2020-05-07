@@ -90,7 +90,7 @@ namespace OnlineHelpSystem
             {
                 if (exercise.TAuId == teacher && exercise.CourseId == course)
                 {
-                    Console.WriteLine(exercise.HelpWhere);
+                    Console.WriteLine($"Help where: {exercise.HelpWhere}, Student Auid: {exercise.AuId}, Lecture: {exercise.Lecture}");
                     exercise.Open = false;                    
                 }               
             }
@@ -102,8 +102,8 @@ namespace OnlineHelpSystem
             {
                 if (assignment.TAuId == teacher && assignment.CourseId == course)
                 {
-                    Console.WriteLine(assignment.AssignmentNumber); //<- Placerholder. Der mangler en helpwhere
-                    assignment.Open = false;                    
+                        Console.WriteLine($" Assignment number: {assignment.AssignmentNumber}, Help Where: {assignment.HelpWhere}, ");
+                        assignment.Open = false;
                 }
             }
             context.SaveChanges(); //To open help-request
@@ -531,9 +531,9 @@ namespace OnlineHelpSystem
             context.Teachers.Add(new Teacher { TAuId = "au531234", Name = "Saul Goodman" });
             context.Teachers.Add(new Teacher { TAuId = "au1241245", Name = "Phoebe Buffay" });
 
-            context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", Open = false});
-            context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", Open = true});
-            context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", Open = false});
+            context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", HelpWhere="Opg 3", Open= false});
+            context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", HelpWhere = "Opg 1", Open = true});
+            context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", HelpWhere = "Opg 1.2", Open = false});
             
             context.Exercises.Add(new Exercise { ExerciseNumber = 1, Lecture = "EF Core", HelpWhere = "opg 2.4", AuId = "au135848", CourseId = "I4DAB", TAuId = "au542413", Open = false});            
             context.Exercises.Add(new Exercise { ExerciseNumber = 2, Lecture = "Migrations", HelpWhere = "opg 1", AuId = "au136427", CourseId = "I4DAB", TAuId = "au542413", Open = true});
