@@ -93,7 +93,7 @@ namespace OnlineHelpSystem
                 {
                     Console.WriteLine("Exercise ID: " + exercise.ExerciseNumber + ", Course: " + exercise.Course.Name + ", HelpeWere: " + exercise.HelpWhere);
                     Console.WriteLine("   * Student who needs help: ");
-                    Console.WriteLine("      - " + "Au id: " + exercise.Student.AuId + ", Name" + exercise.Student.AuId);
+                    Console.WriteLine("      - " + "Au id: " + exercise.AuId + ", Name" + exercise.Student.Name);
                     exercise.Open = false;                    
                 }               
             }
@@ -125,7 +125,7 @@ namespace OnlineHelpSystem
         {
             //I kan teste med auid : au135848
             string auid;
-            Student student;
+            Student student = new Student();
 
             Console.WriteLine("Input Student Auid: ");
             auid = Console.ReadLine();
@@ -139,7 +139,10 @@ namespace OnlineHelpSystem
 
             }
 
-            Console.WriteLine("Exercises: ");
+     
+            Console.WriteLine("Name of student who needs help: " + student.Name);
+
+            Console.WriteLine("___Exercises___ ");
             foreach (var exercise in context.Exercises)
             {
                 if (exercise.AuId == auid && exercise.Open==true)
@@ -152,9 +155,9 @@ namespace OnlineHelpSystem
                 }
             }
 
+            Console.WriteLine("");
 
-
-            Console.WriteLine("Assigments: ");
+            Console.WriteLine("___Assigments___ ");
             foreach (var assignments in context.StudentAssigments)
             {
                     if (assignments.AuId==auid && assignments.Assignment.Open==true)
@@ -162,9 +165,12 @@ namespace OnlineHelpSystem
                         Console.WriteLine("----------Assignment Help Request----------");
                         Console.WriteLine($"Assignment number: {assignments.AssignmentNumber}, Help Where?: {assignments.Assignment.HelpWhere} " +
                             $"Student AuID: {assignments.AuId} Course Id: {assignments.Assignment.CourseId}, Teacher AuID: {assignments.Assignment.TAuId}");
+                    
                         Console.WriteLine("-----------------------------------------");
                     }
             }
+
+            Console.WriteLine("");
 
         }
 
