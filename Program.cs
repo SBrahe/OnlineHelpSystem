@@ -541,9 +541,9 @@ namespace OnlineHelpSystem
 
             context.StudentAssigments.Add(new StudentAssignment { AssignmentNumber = "1", AuId = "au135848" });
 
-            context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413", Open = false});
-            context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", Open = true});
-            context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", Open = false});
+            context.Assignments.Add(new Assignment { AssignmentNumber = "1", CourseId = "I4DAB", TAuId = "au542413",HelpWhere = "Opg 3",Open = false});
+            context.Assignments.Add(new Assignment { AssignmentNumber = "2", CourseId = "I4SWD", TAuId = "au531234", HelpWhere = "Opg 3", Open = true});
+            context.Assignments.Add(new Assignment { AssignmentNumber = "3", CourseId = "I3ISU", TAuId = "au542341", HelpWhere = "Opg 3", Open = false});
                     
      
 
